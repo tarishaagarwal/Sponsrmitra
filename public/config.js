@@ -6,5 +6,5 @@ window.SPONSRMITRA_CONFIG = {
   supabaseAnonKey: '',
   termsUrl: '',
   privacyUrl: '',
-  contactEmail: ''
+  contactEmail: 'tarisha9999@gmail.com'
 };
