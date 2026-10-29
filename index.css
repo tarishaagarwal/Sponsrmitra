@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+:root {
+  --bg-paper: #E7DCC3;
+  --bg-card: #FBF6EA;
+  --text-ink: #221F1A;
+  --text-ink-soft: #4A4436;
+  --accent-marigold: #D9761C;
+  --accent-marigold-hover: #BF6513;
+  --accent-teal: #1F5C56;
+  --accent-teal-hover: #174843;
+  --accent-brick: #A83A2D;
+  --border-ink: rgba(34, 31, 26, 0.16);
+  --border-ink-strong: rgba(34, 31, 26, 0.28);
+  --tape-color: rgba(235, 224, 198, 0.88);
+  --shadow-card: 0 4px 16px -2px rgba(34, 31, 26, 0.12), 0 1px 3px 0 rgba(34, 31, 26, 0.08);
+  --shadow-torn: 0 10px 25px -4px rgba(34, 31, 26, 0.16), 0 3px 6px -1px rgba(34, 31, 26, 0.1);
+}
+
+.dark {
+  --bg-paper: #1B1916;
+  --bg-card: #272420;
+  --text-ink: #EDE6D8;
+  --text-ink-soft: #B8B0A0;
+  --accent-marigold: #E88934;
+  --accent-marigold-hover: #F09848;
+  --accent-teal: #2D7D75;
+  --accent-teal-hover: #37958C;
+  --accent-brick: #C44B3D;
+  --border-ink: rgba(237, 230, 216, 0.16);
+  --border-ink-strong: rgba(237, 230, 216, 0.3);
+  --tape-color: rgba(65, 58, 48, 0.88);
+  --shadow-card: 0 4px 16px -2px rgba(0, 0, 0, 0.45), 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+  --shadow-torn: 0 10px 25px -4px rgba(0, 0, 0, 0.55), 0 3px 6px -1px rgba(0, 0, 0, 0.4);
+}
+
+body {
+  background-color: var(--bg-paper);
+  color: var(--text-ink);
+  font-family: 'Source Serif 4', Georgia, serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6, nav, button, input, select, textarea, .font-heading {
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+}
+
+/* Noticeboard cork/paper grain effect */
+.campus-noticeboard-bg {
+  background-color: var(--bg-paper);
+  background-image: 
+    radial-gradient(rgba(34, 31, 26, 0.05) 1px, transparent 1px),
+    radial-gradient(rgba(34, 31, 26, 0.03) 1px, transparent 1px);
+  background-position: 0 0, 14px 14px;
+  background-size: 28px 28px;
+}
+
+.dark .campus-noticeboard-bg {
+  background-image: 
+    radial-gradient(rgba(237, 230, 216, 0.04) 1px, transparent 1px),
+    radial-gradient(rgba(237, 230, 216, 0.02) 1px, transparent 1px);
+}
+
+/* Ruled index card subtle lines */
+.index-card-ruled {
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    rgba(34, 31, 26, 0.06) 28px
+  );
+}
+
+.dark .index-card-ruled {
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    rgba(237, 230, 216, 0.06) 28px
+  );
+}
+
+/* Torn paper edge simulation */
+.torn-paper-edge {
+  position: relative;
+}
+
+.torn-paper-edge::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background-size: 14px 6px;
+  background-repeat: repeat-x;
+  background-image: radial-gradient(circle at 7px 0, transparent 6px, var(--bg-card) 6.5px);
+}
+
+/* Ticket stub notches */
+.ticket-notch-left,
+.ticket-notch-right {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: var(--bg-paper);
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.ticket-notch-left {
+  left: -7px;
+  box-shadow: inset -1px 0 0 var(--border-ink-strong);
+}
+
+.ticket-notch-right {
+  right: -7px;
+  box-shadow: inset 1px 0 0 var(--border-ink-strong);
+}
+
+/* Custom form elements styling for noticeboard aesthetic */
+input, select, textarea {
+  background-color: transparent;
+  color: var(--text-ink);
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--accent-teal);
+  outline-offset: 1px;
+}
