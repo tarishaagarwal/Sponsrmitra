@@ -2,7 +2,7 @@
 
 A verified sponsorship marketplace for Indian college fests. Fest teams find sponsors that have confirmed they back fests, see what comparable fests raised, ask their own alumni for warm introductions, and run the whole sponsorship pipeline together. Brands receive verified requests in one standard format. A verification desk checks every fest, brand, alumnus and contact.
 
-**Status:** the app and its backend are built and tested. It is not live yet. Going live needs a Supabase project, an email sender and a place to host the site. The steps are in [docs/SETUP.md](docs/SETUP.md). The real app ships with no sample data: until it is connected it shows an "opening soon" page.
+**Status:** the app and its backend are built and tested. The site is published on GitHub Pages at [https://sponsrmitra.live](https://sponsrmitra.live), with the domain verified and HTTPS on. It is not fully live yet: it still needs a Supabase project and an email sender. The steps are in [docs/SETUP.md](docs/SETUP.md). The real app ships with no sample data: until it is connected it shows an "opening soon" page.
 
 ## Who uses it
 
