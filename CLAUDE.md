@@ -4,7 +4,7 @@ A verified sponsorship marketplace for Indian college fests. Fest teams find ver
 
 ## Status
 
-- The app and backend are built and tested. They are **not live yet**: the owner still has to create the Supabase project, set up an email sender and host the site (see `docs/SETUP.md`).
+- The app and backend are built and tested. The site is published on GitHub Pages at https://sponsrmitra.live (domain verified, HTTPS on), deployed from `public/` by `.github/workflows/pages.yml`. It is **not fully live yet**: the owner still has to create the Supabase project and set up an email sender (see `docs/SETUP.md`).
 - The real build (`public/index.html`) contains **no sample data**. Until `public/config.js` is filled in it shows an "opening soon" page.
 - The owner is a student working alone and is not an engineer. Explain changes in plain language and say what needs doing outside the code.
 
@@ -49,7 +49,7 @@ Alerts appear in the app only (no email or WhatsApp). Photos are stored inside t
 
 ## Likely next jobs
 
-- Help the owner finish go-live from `docs/SETUP.md` (Supabase, email sender, hosting, first desk account).
+- Help the owner finish go-live from `docs/SETUP.md` (Supabase, email sender, first desk account). Hosting and the domain are done.
 - Replace the landing page waitlist (see `legacy/ai-studio-landing/LEGACY.md` and `landing/README.md`) with a form that saves to the same Supabase project.
 - Email alerts via a Supabase Edge Function and an email service, then WhatsApp.
 - Move photos to Supabase Storage.

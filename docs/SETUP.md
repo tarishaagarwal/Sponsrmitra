@@ -71,21 +71,11 @@ Supabase’s built-in sender only allows a handful of emails per hour. That is f
 
 4. Never put the **service_role** key anywhere in this repository. It can read everything. The anon key is meant to be public and is safe because of the rules from step 2.
 
-### 6. Put the app on the internet
+### 6. Put the app on the internet (done)
 
-**With GitHub and Vercel (updates itself)**
+The site is published on GitHub Pages at https://sponsrmitra.live. The domain is verified and HTTPS is on. `.github/workflows/pages.yml` publishes the `public` folder every time a change reaches the `main` branch.
 
-1. Create a new private repository on GitHub and push this repository to it (commands are in the main `README.md`).
-2. In Vercel choose **Add New**, **Project**, import that repository and press **Deploy**. `vercel.json` already tells Vercel to serve the `public` folder and there is nothing to build. If Vercel asks, set **Output Directory** to `public`.
-3. When it finishes you get a link ending in `.vercel.app`. Open it. You should see the sign-in screen (or the “We’re opening soon” page if `public/config.js` is still empty).
-4. Whenever you push a change, Vercel republishes within a minute.
-5. To use your own web address, go to the project’s **Settings**, **Domains** and follow the steps. Then in Supabase go to **Authentication**, **URL Configuration** and set **Site URL** to that address.
-
-**Without GitHub (drag and drop)**
-
-1. Open app.netlify.com/drop and sign up with your email.
-2. Drag the `public` folder (it contains `index.html` and `config.js`) onto the page.
-3. You get a link ending in `.netlify.app`. Under **Site configuration**, **Change site name** you can pick a nicer name. To update the app later, drag the folder again.
+One thing is left for when the database exists: in Supabase go to **Authentication**, **URL Configuration** and set **Site URL** to `https://sponsrmitra.live`.
 
 ### 7. Create your own verification desk account
 
@@ -176,4 +166,4 @@ This hides the company from the directory and erases the contact details, but ke
 
 **Tested here:** the database rules and every function against a real Postgres database (85 checks covering who can see and change what, privacy of contact emails and fest data, notifications, caps and verification), and the full app with six people signed in at once on separate browsers sharing one database (39 checks, from sign-in to a deal and the public sponsor page). The app contains no sample data. A separate demo build with made-up people exists only for presentations and is kept in `demo/` and is never deployed.
 
-**Not tested, because it needs your accounts:** real email delivery from Supabase, the app talking to a hosted Supabase project over the internet, your Vercel deployment, behaviour under heavy use, and legal compliance. Treat your first week as a supervised pilot with a handful of fests, and run the test in step 8 on the real site before inviting anyone.
+**Not tested, because it needs your accounts:** real email delivery from Supabase, the app talking to a hosted Supabase project over the internet, your GitHub Pages site, behaviour under heavy use, and legal compliance. Treat your first week as a supervised pilot with a handful of fests, and run the test in step 8 on the real site before inviting anyone.
