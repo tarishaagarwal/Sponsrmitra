@@ -1,0 +1,88 @@
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+DEMO = str(Path(__file__).resolve().parents[1] / 'demo' / 'sponsrmitra-demo.html')
+errors=[]; fails=[]
+def check(name, cond):
+    print(('PASS ' if cond else 'FAIL ')+name)
+    if not cond: fails.append(name)
+with sync_playwright() as p:
+    b=p.chromium.launch()
+    ctx=b.new_context(viewport={'width':390,'height':844})
+    pg=ctx.new_page()
+    pg.on('pageerror', lambda e: errors.append('PAGEERROR '+str(e)))
+    pg.on('console', lambda m: errors.append('CONSOLE '+m.text) if m.type=='error' and 'ERR_' not in m.text else None)
+    pg.goto('file://' + DEMO + ''); pg.wait_for_timeout(300)
+    def ev(js,*a): return pg.evaluate(js,*a)
+    def go(h): pg.evaluate("h=>{location.hash=h}",h); pg.wait_for_timeout(150)
+    def signin(uid): ev("id=>{S.session.userId=id;save();}",uid); go('#/'+('home' if uid.startswith('u_a') and uid in('u_aditi',) else '')); ev("()=>{location.hash=defaultHash(me())}"); pg.wait_for_timeout(150)
+    # ---- Fest lead sends an intro request to Vikram at Cloudnest (Rohan is full of context) ----
+    signin('u_aditi')
+    go('#/intro/c_cloudnest')
+    pg.click('[data-act="pickAlum"][data-id="a_vikram"]')
+    n0=ev("()=>S.intros.length")
+    pg.click('[data-act="sendIntro"]')   # first tap: warnings (proof incomplete) -> asks to confirm
+    check('first tap warns instead of sending', ev("()=>S.intros.length")==n0)
+    pg.click('[data-act="sendIntro"]')
+    check('second tap sends intro', ev("()=>S.intros.length")==n0+1)
+    check('lands on pipeline', ev("()=>location.hash")=='#/pipeline')
+    check('alumnus notified', ev("()=>S.notifs.some(n=>n.userId==='u_rohan'||n.userId===undefined)") is not None)
+    # ---- add proof photo to make checklist pass ----
+    ev("()=>{const f=myFest(); f.proof.photos=['data:image/jpeg;base64,/9j/4AAQSkZJRg=='];save();}")
+    check('proof complete after photo', ev("()=>proofComplete(myFest())"))
+    # ---- pitch request to Brewline via company page (no alumni at my college for Stride) ----
+    go('#/company/c_stride'); pg.click('[data-act="openPitch"]')
+    pg.click('[data-act="sendPitch"]')
+    check('pitch request created', ev("()=>S.requests.some(r=>r.festId==='f_kalpana'&&r.companyId==='c_stride')")==True)
+    # ---- Alumnus Rohan accepts Cloudnest intro ----
+    signin('u_rohan'); go('#/a/inbox')
+    check('alumnus sees waiting requests', pg.locator('[data-act="aAccept"]').count()>=1)
+    pg.locator('[data-act="aAccept"]').first.click()
+    check('intro accepted', ev("()=>S.intros.some(i=>i.alumnusId==='a_rohan'&&i.status==='accepted')"))
+    check('lead notified of acceptance', ev("()=>S.notifs.some(n=>n.userId==='u_aditi'&&/accepted/.test(n.text))"))
+    # ---- Brand: Neha accepts Vertex request, declines Hackverse ----
+    signin('u_neha'); go('#/b/inbox')
+    check('brand sees 2 new requests', pg.locator('[data-act="bAccept"]').count()==2)
+    pg.locator('[data-act="bAccept"]').first.click()
+    check('request accepted', ev("()=>S.requests.filter(r=>r.status==='accepted').length")==2)
+    pg.click('.chip[data-v="new"]')
+    pg.locator('[data-act="bDecline"]').first.click(); pg.click('[data-act="bDeclineGo"]')
+    check('request declined with reason', ev("()=>S.requests.some(r=>r.status==='declined'&&r.reason)"))
+    check('fest pipeline got declined item', ev("()=>S.pipeline.some(p=>p.stage==='declined'&&p.companyId==='c_cloudnest'&&p.decline)"))
+    go('#/b/fests'); pg.locator('[data-act="togCmp"]').nth(0).click(); pg.locator('[data-act="togCmp"]').nth(1).click(); pg.click('[data-act="openCompare"]')
+    check('compare sheet opens', pg.locator('.tbl').count()==1)
+    pg.click('[data-act="closeSheet"]')
+    go('#/b/profile'); pg.click('.tog'); check('brand pause toggled', ev("()=>myCompany().inbound.paused")==True)
+    # ---- Admin: verify pending fest + brand ----
+    signin('u_admin'); go('#/ad/verify')
+    q0=ev("()=>adminQueue().length")
+    pg.locator('[data-act="adVerify"]').first.click()
+    check('verify shrinks queue', ev("()=>adminQueue().length")<q0)
+    go('#/ad/quality'); check('quality page shows duplicates', 'DevLane' in pg.inner_text('#app'))
+    pg.click('[data-act="adMerge"]')
+    check('duplicate merged', ev("()=>!S.companies.some(c=>c.id==='c_devlane2')"))
+    go('#/ad/insights'); go('#/ad/reports'); pg.locator('[data-act="rpResolve"]').first.click(); go('#/ad/log')
+    # ---- Fest: commit a deal and manage deliverables ----
+    signin('u_aditi'); go('#/pipe/p_stride')
+    ev("()=>{ui.forms.cm={id:'p_stride',amount:'150000',kind:'cash',split:'half',later:toDateInput(Date.now()+60*86400000),items:{banner:true,stall:true,social:true,mention:false,report:true}};}")
+    ev("()=>openSheet('commit',{})"); pg.click('[data-act="saveCommit"]')
+    check('commitment recorded', ev("()=>P('p_stride').stage==='committed'&&P('p_stride').payments.length===2&&P('p_stride').deliverables.length===4"))
+    check('lands on deal page', ev("()=>location.hash")=='#/deal/p_stride')
+    pg.locator('[data-act="markPaid"]').first.click(); check('payment marked paid', ev("()=>P('p_stride').payments[0].paid"))
+    pg.locator('[data-act="togDel"]').first.click(); check('deliverable toggled', ev("()=>P('p_stride').deliverables[0].done"))
+    t=ev("()=>totals('f_kalpana')"); check('confirmed total updated', t['confirmed']==470000)
+    # ---- New fest registration then admin verification unlocks sending ----
+    ev("()=>{S.session.userId=null;save();}"); go('#/'); 
+    pg.click('[data-act="openReg"][data-v="fest"]')
+    pg.fill('[data-bind="reg.name"]','Test Lead'); pg.fill('[data-bind="reg.fest"]','Test Fest 2027'); pg.fill('[data-bind="reg.college"]','Test College'); pg.fill('[data-bind="reg.city"]','Nagpur')
+    pg.click('[data-act="regFest"]')
+    check('new fest created pending', ev("()=>myFest()&&myFest().status==='pending'"))
+    go('#/company/c_cloudnest'); pg.wait_for_timeout(100)
+    check('unverified blocks request', 'Waiting for verification' in pg.inner_text('#app'))
+    check('no alumni for other college', ev("()=>alumniAt('c_cloudnest',myFest().college).length")==0)
+    go('#/planner'); check('planner locked breakdown', 'Unlock the breakdown' in pg.inner_text('#app'))
+    # ---- convenor is read-only ----
+    signin('u_ishaan'); go('#/pipe/p_devlane')
+    check('convenor has no edit controls', pg.locator('[data-change="setStage"]').count()==0)
+    print('--- errors ---'); print('\n'.join(errors) or 'none')
+    print('FAILS:', fails)
+    b.close()

@@ -1,0 +1,6 @@
+{
+  "name": "SponsrMitra",
+  "description": "Verified sponsorship marketplace connecting Indian college fest organisers with sponsor companies, benchmark data, and alumni introductions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
