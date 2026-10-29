@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SponsrMitra — Sponsorship, sorted for college fests</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #E7DCC3;
+    --paper-2: #DED0AF;
+    --card: #FBF6EA;
+    --ink: #221F1A;
+    --ink-soft: #4A4436;
+    --marigold: #D9761C;
+    --marigold-ink: #7A3E0C;
+    --teal: #1F5C56;
+    --brick: #A83A2D;
+    --line: rgba(34,31,26,0.14);
+    --shadow: 0 10px 24px rgba(34,31,26,0.16), 0 2px 6px rgba(34,31,26,0.10);
+
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1B1712;
+      --paper-2: #14110D;
+      --card: #26211A;
+      --ink: #EFE6D3;
+      --ink-soft: #C9BEA6;
+      --marigold: #EB9A4C;
+      --marigold-ink: #F3C08B;
+      --teal: #5AAC9F;
+      --brick: #DA7A6B;
+      --line: rgba(239,230,211,0.14);
+      --shadow: 0 10px 26px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.3);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #1B1712;
+    --paper-2: #14110D;
+    --card: #26211A;
+    --ink: #EFE6D3;
+    --ink-soft: #C9BEA6;
+    --marigold: #EB9A4C;
+    --marigold-ink: #F3C08B;
+    --teal: #5AAC9F;
+    --brick: #DA7A6B;
+    --line: rgba(239,230,211,0.14);
+    --shadow: 0 10px 26px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  html { scroll-behavior: smooth; scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(34,31,26,0.05), transparent 40%),
+      radial-gradient(circle at 80% 60%, rgba(34,31,26,0.04), transparent 45%);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .display {
+    font-family: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+    color: var(--ink);
+  }
+  a { color: inherit; }
+  img, svg { max-width: 100%; }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* NAV */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    padding-top: env(safe-area-inset-top, 0px);
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  .brand .pin {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--brick);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.35);
+  }
+  nav.links {
+    display: flex;
+    gap: 28px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.92rem;
+  }
+  nav.links a { text-decoration: none; color: var(--ink-soft); border-bottom: 1px solid transparent; padding-bottom: 2px; }
+  nav.links a:hover { color: var(--ink); border-bottom-color: var(--marigold); }
+  .nav-cta {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 9px 16px;
+    border-radius: 3px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .menu-btn { display: none; background: none; border: none; font-size: 1.4rem; color: var(--ink); cursor: pointer; }
+
+  @media (max-width: 720px) {
+    nav.links { display: none; }
+    .menu-btn { display: block; }
+  }
+
+  /* SECTIONS */
+  section { padding: 72px 0; }
+  .eyebrow-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--teal);
+    margin-bottom: 14px;
+  }
+
+  /* HERO */
+  .hero { padding: 56px 0 40px; }
+  .hero-card {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    box-shadow: var(--shadow);
+    padding: 48px 44px;
+    transform: rotate(-0.6deg);
+    max-width: 760px;
+  }
+  .hero-card::before {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: 48px;
+    width: 34px;
+    height: 22px;
+    background: var(--marigold);
+    opacity: 0.85;
+    transform: rotate(-8deg);
+    box-shadow: 0 3px 5px rgba(0,0,0,0.25);
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 4.6vw, 3.1rem);
+    line-height: 1.12;
+    max-width: 16ch;
+  }
+  .hero p.lede {
+    font-family: "Source Serif 4", serif;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    margin-top: 18px;
+    max-width: 52ch;
+  }
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 30px; }
+  .btn {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 13px 22px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid transparent;
+  }
+  .btn-primary { background: var(--marigold); color: #1c1206; }
+  .btn-secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .btn:hover { filter: brightness(1.06); }
+
+  .stat-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 46px;
+  }
+  .stub {
+    font-family: "Space Grotesk", sans-serif;
+    background: var(--card);
+    border: 1px dashed var(--line);
+    border-radius: 3px;
+    padding: 14px 18px;
+    max-width: 220px;
+    box-shadow: 0 3px 10px rgba(34,31,26,0.08);
+  }
+  .stub .num { font-size: 1.5rem; font-weight: 700; color: var(--brick); display: block; }
+  .stub .cap { font-size: 0.82rem; color: var(--ink-soft); font-family: "Source Serif 4", serif; }
+
+  /* PROBLEM */
+  .cards-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 30px; }
+  @media (max-width: 720px) { .cards-2 { grid-template-columns: 1fr; } }
+  .note-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    box-shadow: var(--shadow);
+    padding: 30px 28px;
+    position: relative;
+  }
+  .note-card.old { transform: rotate(0.7deg); }
+  .note-card.new { transform: rotate(-0.5deg); }
+  .tape {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-3deg);
+    width: 70px;
+    height: 20px;
+    opacity: 0.8;
+  }
+  .tape.brick { background: var(--brick); }
+  .tape.teal { background: var(--teal); }
+  .note-card h3 { font-size: 1.2rem; margin-bottom: 16px; }
+  .note-card ul { margin: 0; padding-left: 20px; color: var(--ink-soft); }
+  .note-card li { margin-bottom: 10px; }
+  .note-card.new li { color: var(--ink); }
+
+  /* HOW IT WORKS */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 30px; }
+  @media (max-width: 860px) { .steps { grid-template-columns: 1fr; } }
+  .step {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    padding: 26px 24px;
+    box-shadow: 0 4px 12px rgba(34,31,26,0.08);
+  }
+  .step .tab {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--teal);
+    border: 1px solid var(--teal);
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .step h3 { font-size: 1.1rem; margin-bottom: 10px; }
+  .step p { color: var(--ink-soft); font-size: 0.98rem; margin: 0; }
+
+  /* WHO FOR */
+  .audience { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 30px; }
+  @media (max-width: 720px) { .audience { grid-template-columns: 1fr; } }
+  .aud-card {
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 30px 28px;
+  }
+  .aud-card h3 { font-size: 1.25rem; margin-bottom: 6px; }
+  .aud-card .role { font-family: "Space Grotesk", sans-serif; font-size: 0.82rem; color: var(--marigold-ink); font-weight: 600; margin-bottom: 16px; display:block; }
+  .aud-card ul { padding-left: 20px; margin: 0 0 20px; color: var(--ink-soft); }
+  .aud-card li { margin-bottom: 8px; }
+
+  /* WAITLIST */
+  .waitlist-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    border-radius: 2px;
+    padding: 44px 40px;
+    max-width: 700px;
+    margin: 30px auto 0;
+    text-align: center;
+    position: relative;
+  }
+  .waitlist-card::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%) rotate(2deg);
+    width: 36px;
+    height: 22px;
+    background: var(--brick);
+    opacity: 0.85;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.25);
+  }
+  .waitlist-card h2 { font-size: 1.6rem; margin-bottom: 10px; }
+  .waitlist-card p { color: var(--ink-soft); max-width: 48ch; margin: 0 auto 26px; }
+  .wl-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  footer {
+    padding: 40px 24px 48px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.88rem;
+  }
+  footer .brand-line { font-family: "Space Grotesk", sans-serif; color: var(--ink); margin-bottom: 6px; font-weight: 600; }
+
+  .center-head { text-align: left; max-width: 640px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand"><span class="pin"></span>SponsrMitra</div>
+    <nav class="links">
+      <a href="#problem">Problem</a>
+      <a href="#how">How it works</a>
+      <a href="#for">Who it's for</a>
+      <a href="#waitlist">Waitlist</a>
+    </nav>
+    <a class="nav-cta" href="#waitlist">Join waitlist</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-card">
+        <h1>Stop cold&#8209;emailing fifty companies and hoping one writes back.</h1>
+        <p class="lede">SponsrMitra is a verified sponsorship marketplace built for Indian college fests &mdash; real company contacts, real deal benchmarks, and warm intros through your own alumni. Less guessing, more planning the actual fest.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#waitlist" onclick="setRole('organiser')">I'm organising a fest</a>
+          <a class="btn btn-secondary" href="#waitlist" onclick="setRole('sponsor')">I want to sponsor one</a>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stub"><span class="num">9 in 10</span><span class="cap">outreach emails go unanswered</span></div>
+        <div class="stub"><span class="num">4+ months</span><span class="cap">fest teams spend hunting for sponsors</span></div>
+        <div class="stub"><span class="num">0</span><span class="cap">clear sense of what a fair ask even is</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="problem">
+    <div class="wrap">
+      <div class="eyebrow-tag">The problem</div>
+      <h2 style="font-size: clamp(1.5rem, 3vw, 2rem); max-width: 22ch;">Every fest team reinvents this wheel, badly, once a year.</h2>
+
+      <div class="cards-2">
+        <div class="note-card old">
+          <span class="tape brick"></span>
+          <h3>The old way</h3>
+          <ul>
+            <li>Scrape LinkedIn for a name and guess at an email address</li>
+            <li>Send fifty identical pitches into the void</li>
+            <li>Wait. Follow up. Wait again.</li>
+            <li>Find out three weeks out that the "confirmed" sponsor never signed anything</li>
+          </ul>
+        </div>
+        <div class="note-card new">
+          <span class="tape teal"></span>
+          <h3>With SponsrMitra</h3>
+          <ul>
+            <li>Search companies that have already confirmed they sponsor college fests</li>
+            <li>See what fests your size actually got, by category and sponsor type</li>
+            <li>Ask your own college's alumni for a warm introduction</li>
+            <li>Know exactly where every conversation stands</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="eyebrow-tag">How it works</div>
+      <h2 class="center-head" style="font-size: clamp(1.5rem, 3vw, 2rem);">Three things a listings site doesn't give you.</h2>
+
+      <div class="steps">
+        <div class="step">
+          <span class="tab">Step 1</span>
+          <h3>Verified contacts</h3>
+          <p>Every company on SponsrMitra has confirmed they're open to sponsoring fests, and every listed contact has been checked. No scraped names, no dead inboxes.</p>
+        </div>
+        <div class="step">
+          <span class="tab">Step 2</span>
+          <h3>Benchmark data</h3>
+          <p>See what fests your size actually raised, by category and sponsor type &mdash; so you stop guessing whether to ask for &#8377;20,000 or &#8377;2,00,000.</p>
+        </div>
+        <div class="step">
+          <span class="tab">Step 3</span>
+          <h3>Alumni intros</h3>
+          <p>Request a warm introduction through your own college's alumni working at the company. Warm asks get answered far more often than cold ones.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="for">
+    <div class="wrap">
+      <div class="eyebrow-tag">Who it's for</div>
+      <h2 class="center-head" style="font-size: clamp(1.5rem, 3vw, 2rem);">Built for both sides of the table.</h2>
+
+      <div class="audience">
+        <div class="aud-card">
+          <span class="role">Fest organisers</span>
+          <h3>Spend the semester planning, not cold&#8209;emailing.</h3>
+          <ul>
+            <li>Save months of dead-end research</li>
+            <li>Walk into a pitch already knowing what's realistic to ask for</li>
+            <li>Get introduced by someone who already believes in your fest</li>
+          </ul>
+          <a class="btn btn-secondary" href="#waitlist" onclick="setRole('organiser')">Join as an organiser</a>
+        </div>
+        <div class="aud-card">
+          <span class="role">Brands &amp; sponsors</span>
+          <h3>Find fests worth sponsoring, without the guesswork.</h3>
+          <ul>
+            <li>Discover pre-qualified, verified college fests</li>
+            <li>Skip the pile of unsolicited decks in your inbox</li>
+            <li>Reach college audiences without chasing every campus yourself</li>
+          </ul>
+          <a class="btn btn-secondary" href="#waitlist" onclick="setRole('sponsor')">Join as a sponsor</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="waitlist">
+    <div class="wrap">
+      <div class="waitlist-card">
+        <h2>Be first on the list</h2>
+        <p>SponsrMitra is opening first in India. Join the waitlist and we'll let you know the moment it's live &mdash; free during early access.</p>
+        <div class="wl-buttons">
+          <a class="btn btn-primary" id="btn-organiser" href="https://forms.gle/REPLACE_WITH_YOUR_FORM_LINK" target="_blank" rel="noopener">Join as an organiser</a>
+          <a class="btn btn-secondary" id="btn-sponsor" href="https://forms.gle/REPLACE_WITH_YOUR_FORM_LINK" target="_blank" rel="noopener">Join as a sponsor</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="brand-line">SponsrMitra</div>
+  <div>Built for the fest team pulling three all-nighters before the sponsor deck is due.</div>
+</footer>
+
+<script>
+  function setRole(role) {
+    // Marks which CTA the visitor entered through; both waitlist buttons
+    // still point at the same form(s) — see the two forms/tabs set up
+    // for "organiser" vs "sponsor" respondents.
+    try {
+      document.getElementById('btn-organiser').style.outline = role === 'organiser' ? '2px solid var(--marigold)' : 'none';
+      document.getElementById('btn-sponsor').style.outline = role === 'sponsor' ? '2px solid var(--marigold)' : 'none';
+    } catch (e) {}
+  }
+</script>
+
+</body>
+</html>
