@@ -523,14 +523,16 @@ end $$;
 
 create or replace function public.join_fest(p jsonb) returns jsonb
 language plpgsql security definer set search_path = public, pg_temp as $$
-declare em text; f entities; nm text; code text; fr text;
+declare em text; f entities; nm text; code text; fr text; n int;
 begin
   em := _need_new_profile();
   nm := trim(coalesce(p->>'name', '')); code := upper(trim(coalesce(p->>'code', '')));
   if nm = '' or code = '' then raise exception 'Enter your name and the team code'; end if;
-  select * into f from entities where kind = 'fests' and (data->>'joinCode' = code or data->>'viewCode' = code) limit 1;
+  select * into f from entities where kind = 'fests' and (data->>'joinCode' = code or data->>'viewCode' = code) limit 1 for update;
   if not found then raise exception 'That team code does not match a fest'; end if;
   fr := case when f.data->>'joinCode' = code then 'member' else 'convenor' end;
+  select count(*) into n from profiles where role = 'fest' and entity_id = f.id;
+  if n >= 4 then raise exception 'This fest team already has the maximum of 4 people.'; end if;
   insert into profiles (id, email, name, initials, role, fest_role, entity_id, title)
   values (auth.uid(), em, nm, _initials(nm), 'fest', fr, f.id, case when fr = 'member' then 'Team member' else 'Convenor, view only' end);
   return jsonb_build_object('festId', f.id);

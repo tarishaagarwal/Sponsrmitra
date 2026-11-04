@@ -17,14 +17,14 @@ A verified sponsorship marketplace for Indian college fests. Fest teams find spo
 
 | Path | What it is |
 | --- | --- |
-| `public/` | What gets deployed: `index.html` (the whole app) and `config.js` (your settings). |
+| `public/` | What gets deployed: `index.html` (the landing page), `app/index.html` (the whole app), `404.html`, `og.png` (the image shown when the site is shared) and `config.js` (your settings). |
 | `src/` | The app source, in plain JavaScript and CSS. No framework, no build tools needed. |
-| `scripts/build.py` | Builds `public/index.html` (real) and `demo/sponsrmitra-demo.html` (sample data) from `src/`. |
+| `scripts/build.py` | Builds the landing page, the 404 page, the real app (`public/app/index.html`) and the demo (`demo/sponsrmitra-demo.html`) from `src/`. |
 | `supabase/schema.sql` | The whole backend: tables, rules, server functions, notification triggers. |
 | `tests/` | Automated tests against a real Postgres. See [tests/README.md](tests/README.md). |
 | `demo/` | A presentation build with made-up people. Never deployed with the real app. |
 | `docs/` | Setup guide, job spec, feature list, idea summary, design screens, links. |
-| `landing/` | A static landing page with the noticeboard design. |
+| `legacy/noticeboard-landing/` | The previous static landing page. Replaced by `src/landing.html`. |
 | `legacy/ai-studio-landing/` | The first landing page from Google AI Studio. Superseded. Read `LEGACY.md` before reusing anything. |
 
 ## Quick start
@@ -36,7 +36,7 @@ A verified sponsorship marketplace for Indian college fests. Fest teams find spo
 **Change it:**
 
 ```
-python3 scripts/build.py          # rebuilds public/index.html and demo/sponsrmitra-demo.html
+python3 scripts/build.py          # rebuilds everything in public/ and demo/
 pip install -r tests/requirements.txt && playwright install chromium
 bash tests/run_all.sh             # runs every test
 ```

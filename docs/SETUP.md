@@ -8,16 +8,17 @@ Menu names in Supabase and Vercel change now and then. If a name below doesn’t
 
 | Path | What it is |
 | --- | --- |
-| `public/index.html` | The whole app, built from `src/`. This is what you deploy. |
-| `public/config.js` | The settings you fill in: your Supabase address and key, links to your terms and privacy pages, and a contact email. |
+| `public/index.html` | The landing page at sponsrmitra.live. |
+| `public/app/index.html` | The whole app, at sponsrmitra.live/app/. Built from `src/`. |
+| `public/config.js` | The settings you fill in: your Supabase address and key, links to your terms and privacy pages, a contact email, and `appOpen` (the launch switch for the landing page buttons). |
 | `supabase/schema.sql` | The database and its rules. You run this once in Supabase. |
 | `vercel.json` | Tells Vercel to serve the `public` folder, plus basic security headers. |
-| `src/`, `scripts/build.py` | The readable source code and the script that builds `public/index.html`. Only needed if a developer edits the app. |
+| `src/`, `scripts/build.py` | The readable source code and the script that builds the files in `public/`. Only needed if a developer edits the app. |
 | `demo/sponsrmitra-demo.html` | A presentation build with made-up sample data. It is never deployed with the real app. |
 | `tests/` | Automated checks. See `tests/README.md`. |
 | `docs/` | This guide, the job spec, the feature list, the design screens and links. |
 
-The real app contains no sample people, companies or fests. Everything in it comes from your own database. Until `public/config.js` is filled in, visitors see a plain “We’re opening soon” page (with your `contactEmail` if you set one), so you can deploy the site safely before the database is connected.
+The real app contains no sample people, companies or fests. Everything in it comes from your own database. The site root (sponsrmitra.live) is a landing page that asks fests and brands to write to your `contactEmail` for early access. Until the Supabase keys in `public/config.js` are filled in, sponsrmitra.live/app/ shows a plain “We’re opening soon” page, so the site is safe to publish before the database is connected.
 
 ## Part 1. Before you launch
 
@@ -75,11 +76,11 @@ Supabase’s built-in sender only allows a handful of emails per hour. That is f
 
 The site is published on GitHub Pages at https://sponsrmitra.live. The domain is verified and HTTPS is on. `.github/workflows/pages.yml` publishes the `public` folder every time a change reaches the `main` branch.
 
-One thing is left for when the database exists: in Supabase go to **Authentication**, **URL Configuration** and set **Site URL** to `https://sponsrmitra.live`.
+One thing is left for when the database exists: in Supabase go to **Authentication**, **URL Configuration** and set **Site URL** to `https://sponsrmitra.live/app/`.
 
 ### 7. Create your own verification desk account
 
-1. Open your live site and sign in with your own email. When it asks “Tell us who you are”, don’t choose anything. Just leave the page.
+1. Open sponsrmitra.live/app/ and sign in with your own email. When it asks “Tell us who you are”, don’t choose anything. Just leave the page.
 2. In Supabase open **SQL Editor** and run this, using your email:
 
    ```
@@ -113,6 +114,16 @@ You will store names, emails, college details and brand contact details of peopl
 ### 10. Backups
 
 Check which plan your Supabase project is on and whether backups are included. Once real fests depend on the data, use a plan with daily backups. Until then, open **Database**, **Backups** regularly, or export the `entities` table from **Table Editor** each week.
+
+### 11. Launch
+
+Do this only after the test in step 8 works on the real site and the legal pages from step 9 are up.
+
+1. Open `public/config.js` and change `appOpen: false` to `appOpen: true`.
+2. Commit the change to the `main` branch on GitHub (you can edit the file directly on github.com). GitHub Pages republishes in a minute or two.
+3. Open sponsrmitra.live. The “Early access” labels are gone and both buttons on the landing page now say “Open the app”.
+
+`appOpen` only changes the landing page buttons. The app at sponsrmitra.live/app/ works as soon as the Supabase keys are in `config.js`, so you can test it there before you launch.
 
 ## Part 2. Running it day to day
 

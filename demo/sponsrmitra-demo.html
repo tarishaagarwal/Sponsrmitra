@@ -158,6 +158,41 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.chip:focus-visibl
 
 .demobar{background:var(--ink);color:var(--bg);font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:12px;text-align:center;padding:5px 8px;position:relative;z-index:41}
 
+/* ----- Desktop layout (900px and up): the phone shell becomes a website.
+   Below 900px nothing changes - the mobile app layout is untouched. ----- */
+@media (min-width:900px){
+  #app{max-width:1120px;padding-bottom:64px}
+  .pad{padding:0 32px}
+  .hdr{padding:12px 32px 10px}
+  .appbar{padding:0 32px}
+  /* tab bar moves to a website top bar under the brand header */
+  .nav{top:0;bottom:auto;left:0;right:0;transform:none;width:100%;max-width:none;height:56px;padding:0 24px;border-top:none;border-bottom:1px solid var(--line);justify-content:center;gap:2px}
+  #app:has(.hdr) .nav{top:62px}
+  .demobar{position:fixed;left:0;right:0;bottom:0}
+  .nav a{flex-direction:row;width:auto;gap:6px;padding:8px 12px;font-size:13.5px;font-weight:600}
+  .nav a .ic{width:auto;height:auto;padding:0;border-radius:0}
+  .nav a .ic svg{width:18px;height:18px;display:block}
+  .nav a:hover{color:var(--ink)}
+  .nav a.on{box-shadow:inset 0 -2px 0 var(--mari)}
+  .nav a.on .ic{background:transparent}
+  /* page content clears the fixed top bar; sub-page bars sit under it */
+  #app:has(.nav) #main{padding-top:56px}
+  #app:has(.nav):not(:has(.hdr)) .appbar{top:56px}
+  /* bottom sheets become centred dialogs */
+  .ovl{align-items:center;padding:24px}
+  .sheet{max-width:640px;max-height:84vh;border-radius:22px}
+  /* fixed action bar docks right instead of stretching */
+  .sticky{max-width:1120px;justify-content:flex-end}
+  .sticky .btn{flex:0 0 auto;width:auto;min-width:220px}
+  /* desktop-sized controls and readable content */
+  #main .btn:not(.sm){max-width:420px}
+  .chips{flex-wrap:wrap;overflow:visible;margin:0}
+  .hero{max-width:620px;margin:0 auto;padding-top:64px}
+  .hero + .pad{max-width:652px;margin:0 auto}
+  .metric{min-width:170px}
+  .slide,.docpage{max-width:860px;margin-left:auto;margin-right:auto}
+}
+
 </style>
 </head>
 <body>
@@ -824,11 +859,11 @@ V.loginServer = () => {
   }
   const a = ui.auth || { step: 'email', email: '' };
   return '<div class="hero"><div class="brand"><i></i>SponsrMitra</div><h1 class="h1" style="font-size:34px;margin-top:22px">Sponsorship, sorted for college fests.</h1>' +
-    '<p class="note mt12" style="font-size:16px">Verified companies, real benchmarks and warm introductions through your own alumni.</p></div><div class="pad">' +
+    '<p class="note mt12" style="font-size:16px">One place for your fest’s sponsor hunt: the target, the companies, the follow-ups and introductions through your own alumni.</p></div><div class="pad">' +
     (a.step === 'code'
       ? '<div class="card mt16"><div class="h3">Check your email</div><p class="note mt8">We sent a code to <b class="sg" style="color:var(--ink)">' + esc(a.email) + '</b>. Enter it below.</p>' + fld('Code', inp('au.code', { ph: '123456' })) +
         '<button class="btn primary mt16 ' + (a.busy ? 'off' : '') + '" data-act="sbVerify">Sign in</button><button class="btn ghost mt12" data-act="sbBack">Use a different email</button></div>'
-      : '<div class="card mt16"><div class="h3">Sign in or create an account</div><p class="note mt8">No password. We email you a short code.</p>' + fld('Email', inp('au.email', { type: 'email', ph: 'you@college.edu' })) +
+      : '<div class="card mt16"><div class="h3">Sign in or create an account</div><p class="note mt8">No password. We email you a short code.</p>' + fld('Email', inp('au.email', { type: 'email', ph: 'Your college or work email' })) +
         '<button class="btn primary mt16 ' + (a.busy ? 'off' : '') + '" data-act="sbSendCode">Email me a code</button></div>') +
     '<p class="note mt16">By continuing you agree to the <a href="' + esc(CFG.termsUrl || '#') + '" style="text-decoration:underline">terms</a> and <a href="' + esc(CFG.privacyUrl || '#') + '" style="text-decoration:underline">privacy policy</a>.</p></div>';
 };
@@ -902,14 +937,14 @@ const COLORS = ['#1F5C56', '#A83A2D', '#3F5A78', '#6B3A6B', '#8A5A0B', '#4F6D3A'
 
 V.login = () => (SERVER ? V.loginServer() : DEMO_OK ? V.loginDemo() : V.holding());
 V.holding = () => '<div class="hero"><div class="brand"><i></i>SponsrMitra</div><h1 class="h1" style="font-size:34px;margin-top:22px">Sponsorship, sorted for college fests.</h1>' +
-  '<p class="note mt12" style="font-size:16px">Verified companies, real benchmarks and warm introductions through your own alumni.</p></div>' +
-  '<div class="pad"><div class="card mt16"><div class="h3">We’re opening soon</div><p class="note mt8">SponsrMitra is being set up for its first fests. ' + (CFG.contactEmail ? 'To be among the first, write to <a href="mailto:' + esc(CFG.contactEmail) + '" style="text-decoration:underline">' + esc(CFG.contactEmail) + '</a>.' : 'Please check back shortly.') + '</p></div></div>';
+  '<p class="note mt12" style="font-size:16px">One place for your fest’s sponsor hunt: the target, the companies, the follow-ups and introductions through your own alumni.</p></div>' +
+  '<div class="pad"><div class="card mt16"><div class="h3">We’re opening soon</div><p class="note mt8">SponsrMitra is being set up for its first fests. ' + (CFG.contactEmail ? 'To be among the first, write to <a href="mailto:' + esc(CFG.contactEmail) + '" style="text-decoration:underline">' + esc(CFG.contactEmail) + '</a>.' : 'Please check back shortly.') + '</p><a class="btn ghost sm mt16" href="../">About SponsrMitra</a></div></div>';
 V.loginDemo = () => {
   const personas = S.users.map((u) => '<button class="persona" data-act="signin" data-id="' + u.id + '">' + avatar(u.initials, 'lg') +
     '<div class="f1"><div class="sg" style="font-weight:700;font-size:16px">' + esc(u.name) + '</div><div class="note">' + esc(ROLE_LABEL[u.role]) + '. ' + esc(u.title) + '</div></div>' + ico('chev', 18, 'currentColor', 2) + '</button>').join('');
   return '<div class="hero"><div class="brand"><i></i>SponsrMitra</div>' +
     '<h1 class="h1" style="font-size:34px;margin-top:22px">Sponsorship, sorted for college fests.</h1>' +
-    '<p class="note mt12" style="font-size:16px">Verified companies, real benchmarks and warm introductions through your own alumni. Pick a person to explore the product from their side.</p></div>' +
+    '<p class="note mt12" style="font-size:16px">One place for your fest’s sponsor hunt: the target, the companies, the follow-ups and introductions through your own alumni. Pick a person to explore the product from their side.</p></div>' +
     '<div class="pad"><div class="cap mt16">Explore as</div>' + personas +
     '<div class="sec"><div class="h3">Create an account</div></div>' +
     '<div class="row wrap"><button class="btn ghost sm" data-act="openReg" data-v="fest">Register a fest</button><button class="btn ghost sm" data-act="openReg" data-v="brand">Register a brand</button><button class="btn ghost sm" data-act="openReg" data-v="alumni">Join as alumnus</button></div>' +
@@ -939,7 +974,7 @@ SHEETS.notifs = () => {
   const items = S.notifs.filter((n) => n.userId === u.id).slice(0, 25);
   return '<div class="h2">Notifications</div>' +
     (items.length ? '<div class="card mt12" style="padding:6px 16px">' + items.map((n) => '<a class="lr" href="' + esc(n.link || '#/') + '"><div class="t"><b style="font-weight:600">' + esc(n.text) + '</b><span>' + agoText(n.ts) + '</span></div>' + ico('chev', 16, 'currentColor', 2) + '</a>').join('') + '</div>' : empty('Nothing yet', 'Replies, intro responses and due tasks show up here.')) +
-    (u.role === 'fest' ? '<button class="btn ghost mt16" data-act="digest">Preview this week’s digest</button><p class="note mt8">In the live product this goes to email and WhatsApp.</p>' : '') +
+    (u.role === 'fest' ? '<button class="btn ghost mt16" data-act="digest">Preview this week’s digest</button>' : '') +
     '<button class="btn ghost mt12" data-act="closeSheet">Close</button>';
 };
 ACT.digest = () => {

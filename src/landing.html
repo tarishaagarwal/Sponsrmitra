@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SponsrMitra: sponsorship, sorted for college fests</title>
+<meta name="description" content="SponsrMitra helps Indian college fest teams plan their sponsor hunt, keep every conversation in one place, and ask their own alumni for introductions.">
+<link rel="canonical" href="https://sponsrmitra.live/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SponsrMitra">
+<meta property="og:url" content="https://sponsrmitra.live/">
+<meta property="og:title" content="SponsrMitra: sponsorship, sorted for college fests">
+<meta property="og:description" content="One place for a college fest’s sponsor hunt: the target, the companies, the follow-ups and introductions through your own alumni. Early access for Indian college fests.">
+<meta property="og:image" content="https://sponsrmitra.live/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SponsrMitra: sponsorship, sorted for college fests">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SponsrMitra: sponsorship, sorted for college fests">
+<meta name="twitter:description" content="One place for a college fest’s sponsor hunt: the target, the companies, the follow-ups and introductions through your own alumni. Early access for Indian college fests.">
+<meta name="twitter:image" content="https://sponsrmitra.live/og.png">
+<meta name="theme-color" content="#E7DCC3">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%236A231A'/%3E%3Ccircle cx='16' cy='16' r='10.5' fill='%23A83A2D'/%3E%3Ccircle cx='13' cy='13' r='4' fill='%23D85A4C'/%3E%3C/svg%3E">
+<script>
+  // Old app links (sponsrmitra.live/#/sponsor/...) now live under /app/.
+  if (/^#\//.test(location.hash)) location.replace('app/' + location.hash);
+  try { var t = localStorage.getItem('sponsrmitra.theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) { /* storage blocked */ }
+</script>
+<script src="config.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E7DCC3; --paper2:#DCCFB1; --card:#FFFCF4; --ink:#221F1A; --ink2:#5A5445; --line:rgba(34,31,26,.14);
+  --mari:#D9761C; --mari-ink:#1c1206; --mari-soft:#F6DDBF; --teal:#1F5C56; --teal-soft:#D5E6E1;
+  --brick:#A83A2D; --brick-soft:#F1D6D1; --amber:#8A5A0B; --amber-soft:#F5E3B8; --track:rgba(34,31,26,.10);
+  --hold:#E5C79C; --shadow:0 1px 0 rgba(34,31,26,.05),0 14px 30px -18px rgba(34,31,26,.45); --glow:rgba(255,255,255,.18);
+  --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px; --s7:48px; --s8:72px; --s9:104px;
+  --hd:"Space Grotesk","Helvetica Neue",Arial,sans-serif; --bd:"Source Serif 4",Georgia,"Times New Roman",serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#16130F; --paper2:#1F1A14; --card:#26211A; --ink:#EFE6D3; --ink2:#C9BEA6; --line:rgba(239,230,211,.15);
+    --mari:#EB9A4C; --mari-soft:#4A3320; --teal:#5AAC9F; --teal-soft:#20403B; --brick:#DA7A6B; --brick-soft:#4A2622;
+    --amber:#E8B35A; --amber-soft:#46371A; --track:rgba(239,230,211,.13); --hold:#8F7650; --shadow:0 14px 30px -16px rgba(0,0,0,.75); --glow:rgba(235,154,76,.05);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#16130F; --paper2:#1F1A14; --card:#26211A; --ink:#EFE6D3; --ink2:#C9BEA6; --line:rgba(239,230,211,.15);
+  --mari:#EB9A4C; --mari-soft:#4A3320; --teal:#5AAC9F; --teal-soft:#20403B; --brick:#DA7A6B; --brick-soft:#4A2622;
+  --amber:#E8B35A; --amber-soft:#46371A; --track:rgba(239,230,211,.13); --hold:#8F7650; --shadow:0 14px 30px -16px rgba(0,0,0,.75); --glow:rgba(235,154,76,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--bd);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+  background-image:radial-gradient(circle at 15% 8%,var(--glow),transparent 38%),radial-gradient(circle at 85% 55%,rgba(34,31,26,.05),transparent 42%),radial-gradient(rgba(34,31,26,.05) 1px,transparent 1.2px);background-size:auto,auto,5px 5px}
+h1,h2,h3,.hd{font-family:var(--hd);letter-spacing:-.02em;line-height:1.12;font-weight:700}
+a{color:inherit}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--mari);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 var(--s4)}
+@media (min-width:720px){.wrap{padding:0 var(--s6)}}
+.skip{position:absolute;left:-999px;top:8px;background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:8px;font-family:var(--hd);z-index:100}
+.skip:focus{left:8px}
+[hidden]{display:none!important}
+
+/* header */
+.top{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:var(--s4);height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--hd);font-weight:700;font-size:19px;letter-spacing:-.01em;text-decoration:none}
+.pin{width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#D85A4C 0 30%,var(--brick) 32% 70%,#6A231A 72%);box-shadow:0 2px 3px rgba(0,0,0,.35);flex:none}
+.pin.teal{background:radial-gradient(circle at 35% 35%,#3A8A82 0 30%,#1F5C56 32% 70%,#123935 72%)}
+.pin.mari{background:radial-gradient(circle at 35% 35%,#F39C46 0 30%,#D9761C 32% 70%,#944E0E 72%)}
+.links{display:none;gap:var(--s5);margin-left:auto;font-family:var(--hd);font-weight:500;font-size:15px}
+.links a{text-decoration:none;color:var(--ink2)}.links a:hover{color:var(--ink)}
+@media (min-width:880px){.links{display:flex}}
+.top-r{display:flex;align-items:center;gap:var(--s2);margin-left:auto}
+@media (min-width:880px){.top-r{margin-left:var(--s5)}}
+.iconbtn{width:40px;height:40px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer}
+
+/* ticket label */
+.ticket{position:relative;display:inline-flex;align-items:center;gap:8px;font-family:var(--hd);font-weight:600;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--brick);background:var(--card);border:1px dashed color-mix(in srgb,var(--brick) 55%,transparent);padding:5px 14px;border-radius:4px;white-space:nowrap}
+.ticket::before,.ticket::after{content:"";position:absolute;top:50%;width:10px;height:10px;border-radius:50%;background:var(--paper);transform:translateY(-50%);border:1px dashed color-mix(in srgb,var(--brick) 55%,transparent)}
+.ticket::before{left:-6px;border-left-color:transparent;border-bottom-color:transparent;transform:translateY(-50%) rotate(45deg)}
+.ticket::after{right:-6px;border-right-color:transparent;border-top-color:transparent;transform:translateY(-50%) rotate(45deg)}
+.ticket i{width:6px;height:6px;border-radius:50%;background:var(--brick)}
+.top .ticket{display:none}
+@media (min-width:560px){.top .ticket{display:inline-flex}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 24px;border-radius:14px;font-family:var(--hd);font-weight:600;font-size:16.5px;text-decoration:none;cursor:pointer;border:1.5px solid transparent;transition:transform .15s ease,box-shadow .15s ease;text-align:center}
+.btn.primary{background:var(--mari);color:var(--mari-ink);box-shadow:0 2px 0 rgba(34,31,26,.25)}
+.btn.primary:hover{transform:translateY(-1px);box-shadow:0 4px 0 rgba(34,31,26,.25)}
+.btn.ghost{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn.ghost:hover{background:color-mix(in srgb,var(--ink) 6%,transparent)}
+.btn.sm{min-height:40px;padding:0 16px;font-size:14.5px;border-radius:11px}
+
+/* cards and noticeboard details */
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:var(--s5);box-shadow:var(--shadow)}
+.tape{position:absolute;top:-11px;left:28px;width:76px;height:22px;background:var(--mari);opacity:.85;transform:rotate(-4deg);box-shadow:0 2px 4px rgba(0,0,0,.18);border-radius:2px}
+.tape.r{left:auto;right:28px;transform:rotate(5deg)}
+.tape.teal{background:var(--teal);opacity:.75}.tape.brick{background:var(--brick);opacity:.75}.tape.cream{background:var(--hold);opacity:.9}
+.card>.pin{position:absolute;top:12px;left:50%;margin-left:-6px}
+.tilt-l{transform:rotate(-.8deg)}.tilt-r{transform:rotate(.7deg)}
+.eyebrow{font-family:var(--hd);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.lede{font-size:clamp(18px,2.2vw,20px);color:var(--ink2);max-width:60ch}
+.sec{padding:var(--s8) 0}
+@media (min-width:1024px){.sec{padding:var(--s9) 0}}
+.sec-h{max-width:720px;margin-bottom:var(--s6)}
+.sec-h h2{font-size:clamp(28px,4vw,40px);margin-top:var(--s2)}
+.sec-h p{margin-top:var(--s3);color:var(--ink2)}
+.grid2,.grid3{display:grid;gap:var(--s5)}
+@media (min-width:760px){.grid2{grid-template-columns:1fr 1fr;gap:var(--s6)}.grid3{grid-template-columns:repeat(3,1fr)}}
+.split{display:grid;gap:var(--s6);align-items:center}
+@media (min-width:900px){.split{grid-template-columns:1.05fr .95fr;gap:var(--s7)}.split.flip>:first-child{order:2}}
+ul.ticks{list-style:none;display:grid;gap:var(--s3);margin-top:var(--s4)}
+ul.ticks li{display:flex;gap:12px;align-items:flex-start}
+ul.ticks li::before{content:"";flex:none;width:20px;height:20px;margin-top:4px;border-radius:6px;background:var(--teal-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231F5C56' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/14px no-repeat}
+ul.ticks.x li::before{background:var(--brick-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A83A2D' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M7 7l10 10M17 7 7 17'/%3E%3C/svg%3E") center/13px no-repeat}
+
+/* hero */
+.hero{padding:var(--s7) 0 var(--s8)}
+@media (min-width:1024px){.hero{padding:var(--s8) 0 var(--s9)}}
+.hero-grid{display:grid;gap:var(--s7);align-items:center}
+@media (min-width:980px){.hero-grid{grid-template-columns:1.1fr .9fr}}
+.hero h1{font-size:clamp(38px,6.4vw,66px);margin-top:var(--s4);max-width:14ch}
+.hero .lede{margin-top:var(--s4)}
+.ctas{display:grid;gap:var(--s3);margin-top:var(--s6)}
+@media (min-width:560px){.ctas{grid-template-columns:1fr 1fr;max-width:560px}}
+.cta{display:flex;flex-direction:column;gap:6px}
+.cta>span{font-family:var(--hd);font-weight:600;font-size:13.5px;color:var(--ink2)}
+.cta .btn{width:100%}
+.hero-note{margin-top:var(--s4);font-size:15px;color:var(--ink2)}
+
+/* product pictures (generic labels, no figures) */
+.mock{font-family:var(--hd);font-size:14px}
+.mock .lbl{font-weight:500;font-size:12.5px;color:var(--ink2)}
+.mock .val{font-weight:700;font-size:30px;letter-spacing:-.02em;color:var(--ink2)}
+.mock .title{font-weight:700;font-size:20px;letter-spacing:-.01em}
+.bar{display:flex;height:12px;border-radius:8px;background:var(--track);overflow:hidden;margin-top:var(--s3)}
+.bar i{display:block;height:100%}
+.legend{display:flex;justify-content:space-between;gap:8px;margin-top:var(--s3);font-weight:500;font-size:12.5px;color:var(--ink2)}
+.legend span{display:flex;align-items:center;gap:6px}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:none}
+.row{display:flex;align-items:center;gap:12px}
+.lr{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.lr:first-child{border-top:none}
+.lr b{display:block;font-weight:600;font-size:14.5px}
+.lr small{display:block;font-family:var(--bd);font-size:13.5px;color:var(--ink2)}
+.ic{width:34px;height:34px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center}
+.logo{width:44px;height:44px;border-radius:50%;flex:none;background:var(--teal);color:#FFFCF4;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px}
+.logo.alt{background:#8A5A0B}
+.av{width:40px;height:40px;border-radius:50%;flex:none;background:var(--teal-soft);color:var(--teal);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.tag{display:inline-block;font-weight:500;font-size:11.5px;padding:3px 9px;border-radius:8px;background:var(--track);color:var(--ink2)}
+.badge{display:inline-flex;align-items:center;gap:4px;font-weight:600;font-size:11.5px;padding:3px 9px 3px 7px;border-radius:20px;white-space:nowrap}
+.badge.ok{color:var(--teal);background:var(--teal-soft)}.badge.due{color:var(--amber);background:var(--amber-soft)}
+.mini-btn{flex:1;min-height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;border:1.5px solid var(--line)}
+.mini-btn.p{background:var(--mari);color:var(--mari-ink);border-color:transparent}
+.ex-label{position:absolute;right:14px;top:14px;font-family:var(--hd);font-weight:600;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);border:1px solid var(--line);padding:2px 8px;border-radius:20px;background:var(--card)}
+.rbar{position:relative;height:12px;background:var(--track);border-radius:7px;margin-top:var(--s4)}
+.rbar i{position:absolute;top:0;bottom:0;left:30%;right:38%;border-radius:7px;background:var(--teal)}
+.rbar b{position:absolute;top:-5px;left:52%;width:3px;height:22px;border-radius:2px;background:var(--ink)}
+.stack-cards{position:relative;display:grid;gap:var(--s5)}
+
+/* steps */
+.step{padding-top:var(--s6)}
+.step .num{position:absolute;top:-16px;left:var(--s5);font-family:var(--hd);font-weight:700;font-size:15px;background:var(--mari);color:var(--mari-ink);width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 0 rgba(34,31,26,.25)}
+.step h3,.who h3{font-size:21px}
+.step p,.who p{margin-top:var(--s2);color:var(--ink2);font-size:16px}
+.stub{border-top:1.5px dashed var(--line);margin-top:var(--s4);padding-top:var(--s3);font-family:var(--hd);font-weight:600;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+
+/* problem */
+.problem .card h3{font-size:22px;margin-top:var(--s2)}
+
+/* verification timeline */
+.tl{list-style:none;display:grid;gap:0;position:relative}
+.tl li{position:relative;padding:0 0 var(--s5) 44px}
+.tl li::before{content:"";position:absolute;left:13px;top:30px;bottom:0;width:2px;background:var(--line)}
+.tl li:last-child::before{display:none}
+.tl .k{position:absolute;left:0;top:2px;width:28px;height:28px;border-radius:50%;background:var(--teal-soft);color:var(--teal);display:flex;align-items:center;justify-content:center}
+.tl h3{font-size:18px}
+.tl p{color:var(--ink2);font-size:16px;margin-top:2px}
+
+/* faq */
+.faq{display:grid;gap:var(--s3);max-width:820px}
+.faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:0 var(--s5)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:var(--s4);padding:var(--s4) 0;font-family:var(--hd);font-weight:600;font-size:17px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";flex:none;width:12px;height:12px;border-right:2px solid var(--ink2);border-bottom:2px solid var(--ink2);transform:rotate(45deg) translate(-3px,-3px);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(-135deg) translate(-3px,-3px)}
+.faq details p{padding-bottom:var(--s4);color:var(--ink2)}
+
+/* early access */
+.ea{max-width:820px;margin:0 auto;text-align:center;padding:var(--s7) var(--s5)}
+@media (min-width:720px){.ea{padding:var(--s7) var(--s7)}}
+.ea h2{font-size:clamp(28px,4vw,40px);margin-top:var(--s3)}
+.ea p{margin:var(--s3) auto 0;color:var(--ink2);max-width:54ch}
+.ea .btn{margin-top:var(--s5)}
+.ea .small{font-size:14.5px;margin-top:var(--s4)}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding:var(--s6) 0 calc(var(--s6) + env(safe-area-inset-bottom,0px));font-family:var(--hd);font-size:14.5px;color:var(--ink2)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:var(--s4) var(--s5);align-items:center;justify-content:space-between}
+footer nav{display:flex;flex-wrap:wrap;gap:var(--s4)}
+footer a{text-decoration:underline;text-underline-offset:3px}
+
+/* motion: only when allowed and only after the script opts in */
+.js-reveal .rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.js-reveal .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.js-reveal .rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./" aria-label="SponsrMitra home"><span class="pin" aria-hidden="true"></span>SponsrMitra</a>
+    <span class="ticket" data-early><i aria-hidden="true"></i>Early access</span>
+    <nav class="links" aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#verification">Verification</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="top-r">
+      <a class="btn primary sm" href="app/" data-open hidden>Open the app</a>
+      <button class="iconbtn" type="button" id="theme" aria-label="Switch between light and dark theme">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="ticket" data-early><i aria-hidden="true"></i>Early access</span>
+        <h1>Sponsorship, sorted for college fests.</h1>
+        <p class="lede">SponsrMitra helps Indian college fest teams keep the whole sponsor hunt in one place - the target, the companies, every follow-up - and ask their own alumni for an introduction.</p>
+        <div class="ctas">
+          <div class="cta"><span>I run a fest</span><a class="btn primary" href="#early-access" data-cta="fest">Request early access</a></div>
+          <div class="cta"><span>I represent a brand</span><a class="btn ghost" href="#early-access" data-cta="brand">Request early access</a></div>
+        </div>
+        <p class="hero-note" data-early>We’re setting SponsrMitra up for its first fests and brands.</p>
+      </div>
+      <div class="rv" aria-hidden="true">
+        <div class="card mock tilt-r">
+          <span class="tape"></span>
+          <span class="ex-label">Example screen</span>
+          <div class="lbl">Your college</div>
+          <div class="title">Your fest</div>
+          <div class="lbl" style="margin-top:var(--s4)">Sponsorship target</div>
+          <div class="val">₹ —</div>
+          <div class="bar"><i style="width:28%;background:var(--teal)"></i><i style="width:18%;background:var(--mari)"></i><i style="width:22%;background:var(--hold)"></i></div>
+          <div class="legend"><span><i class="dot" style="background:var(--teal)"></i>Confirmed</span><span><i class="dot" style="background:var(--mari)"></i>Likely</span><span><i class="dot" style="background:var(--hold)"></i>Hoped for</span></div>
+          <div style="margin-top:var(--s5)">
+            <div class="lr"><span class="ic" style="background:var(--brick-soft);color:var(--brick)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2"/></svg></span><div><b>Follow up with a company</b><small>Due today</small></div></div>
+            <div class="lr"><span class="ic" style="background:var(--teal-soft);color:var(--teal)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><b>Introduction accepted</b><small>Send your deck to their contact</small></div></div>
+            <div class="lr"><span class="ic" style="background:var(--amber-soft);color:var(--amber)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l10 17.5H2zM12 10.5v4.5M12 18v.4"/></svg></span><div><b>Proof pack is incomplete</b><small>Add photos from last year’s fest</small></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec problem" id="problem" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-h rv">
+        <div class="eyebrow">The problem</div>
+        <h2>Every year, each fest team starts from scratch.</h2>
+        <p>Sponsorship teams change every year. Contacts, past deals and what worked often leave with the people who graduate.</p>
+      </div>
+      <div class="grid2">
+        <div class="card tilt-l rv">
+          <span class="tape brick"></span>
+          <div class="eyebrow" style="color:var(--brick)">The old way</div>
+          <h3>Cold emails and guesswork</h3>
+          <ul class="ticks x">
+            <li>A contact list copied from last year, with no way to tell which emails still work.</li>
+            <li>Emails to companies that may not sponsor fests at all.</li>
+            <li>No clear idea of what a fair ask is for a fest of your size.</li>
+            <li>Notes spread across chats and spreadsheets that the next team never sees.</li>
+          </ul>
+        </div>
+        <div class="card tilt-r rv">
+          <span class="tape teal r"></span>
+          <div class="eyebrow">With SponsrMitra</div>
+          <h3>A shared plan for the whole team</h3>
+          <ul class="ticks">
+            <li>Your team’s own company list, plus sponsor companies we add as each one is checked.</li>
+            <li>A target for your fest, split into confirmed, likely and hoped for.</li>
+            <li>Introductions through alumni of your own college.</li>
+            <li>One pipeline your whole team works from and hands over to next year’s team.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="how" style="background:color-mix(in srgb,var(--paper2) 60%,transparent)">
+    <div class="wrap">
+      <div class="sec-h rv">
+        <div class="eyebrow">How it works</div>
+        <h2>From a target to a sponsor report, in three steps.</h2>
+      </div>
+      <div class="grid3">
+        <div class="card step rv"><span class="num">1</span><h3>Set a realistic target</h3><p>Set a sponsorship target for your fest and split it into confirmed, likely and hoped for, so everyone sees the same goal.</p><div class="stub">Target planner</div></div>
+        <div class="card step rv"><span class="num">2</span><h3>Find sponsors and ask for an introduction</h3><p>Browse sponsor companies. If an alumnus of your college works at one, ask them to introduce your fest.</p><div class="stub">Find sponsors</div></div>
+        <div class="card step rv"><span class="num">3</span><h3>Run the pipeline as a team</h3><p>Track every conversation, deal, deliverable and payment in one place, then share a report with each sponsor.</p><div class="stub">Pipeline</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="contacts">
+    <div class="wrap split">
+      <div class="rv">
+        <div class="eyebrow">Company contacts</div>
+        <h2 style="font-size:clamp(28px,4vw,40px);margin-top:var(--s2)">Contacts checked before they are listed.</h2>
+        <p class="lede" style="margin-top:var(--s3);font-size:18px">Companies join SponsrMitra one at a time, and a person checks each contact before it appears. The app shows when that last happened.</p>
+        <ul class="ticks">
+          <li>Contacts are re-checked regularly, and anything older than 60 days is marked for a re-check.</li>
+          <li>A contact’s email stays hidden until your fest reaches out to that company.</li>
+          <li>If an email bounces, you can report it and we fix it.</li>
+        </ul>
+      </div>
+      <div class="stack-cards rv" aria-hidden="true">
+        <div class="card mock tilt-l">
+          <span class="pin teal"></span>
+          <div class="row" style="margin-top:var(--s2)"><div class="logo">A</div><div style="flex:1;min-width:0"><div class="title" style="font-size:18px">A company</div><div class="lbl">Sponsors college fests</div></div></div>
+          <div class="row" style="margin-top:var(--s3);gap:6px;flex-wrap:wrap"><span class="tag">Cash</span><span class="tag">Hiring</span><span class="tag">Prizes</span></div>
+          <div class="row" style="margin-top:var(--s3)"><span class="badge ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Verified</span><span class="lbl">Checked recently</span></div>
+        </div>
+        <div class="card mock tilt-r" style="margin-left:var(--s5)">
+          <span class="pin mari"></span>
+          <div class="row" style="margin-top:var(--s2)"><div class="logo alt">B</div><div style="flex:1;min-width:0"><div class="title" style="font-size:18px">Another company</div><div class="lbl">Sponsors college fests</div></div></div>
+          <div class="row" style="margin-top:var(--s3)"><span class="badge due"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2"/></svg>Re-check due</span><span class="lbl">Waiting for the desk</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="benchmarks" style="padding-top:0">
+    <div class="wrap split flip">
+      <div class="rv">
+        <div class="eyebrow">Benchmarks</div>
+        <h2 style="font-size:clamp(28px,4vw,40px);margin-top:var(--s2)">Honest benchmarks, or no number at all.</h2>
+        <p class="lede" style="margin-top:var(--s3);font-size:18px">When enough fest teams have reported what they raised, SponsrMitra shows ranges by fest type, size and sponsor type.</p>
+        <ul class="ticks">
+          <li>Until at least five fests are behind a range, you see “Not enough data yet” instead of a number.</li>
+          <li>Each range shows how many fests it is based on.</li>
+        </ul>
+      </div>
+      <div class="rv" aria-hidden="true">
+        <div class="card mock tilt-l">
+          <span class="tape cream"></span>
+          <span class="ex-label">Example screen</span>
+          <div class="lbl">Comparable fests raised</div>
+          <div class="val">₹ — to ₹ —</div>
+          <div class="lbl" style="margin-top:4px">Based on fests of a similar type and size</div>
+          <div class="rbar"><i></i><b></b></div>
+          <div class="legend"><span>Lower</span><span>Your target</span><span>Higher</span></div>
+          <div class="lr" style="margin-top:var(--s4);border-top:1px solid var(--line);padding-top:var(--s3)"><div style="flex:1"><b>Beverages and FMCG</b><small>Not enough data yet</small></div><span class="tag">Fewer than 5 fests</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="alumni" style="padding-top:0">
+    <div class="wrap split">
+      <div class="rv">
+        <div class="eyebrow">Alumni introductions</div>
+        <h2 style="font-size:clamp(28px,4vw,40px);margin-top:var(--s2)">Introductions through your own alumni.</h2>
+        <p class="lede" style="margin-top:var(--s3);font-size:18px">Alumni of your college can join and say where they work. You can ask one of them to introduce your fest to their company.</p>
+        <ul class="ticks">
+          <li>They answer with one tap: introduce, decline or suggest someone else.</li>
+          <li>Alumni appear only to fests from their own college.</li>
+          <li>Each alumnus chooses how many requests they accept in a month.</li>
+        </ul>
+      </div>
+      <div class="rv" aria-hidden="true">
+        <div class="card mock tilt-r">
+          <span class="pin"></span>
+          <div class="lbl" style="margin-top:var(--s2)">Introduction request</div>
+          <div class="row" style="margin-top:var(--s3)"><div class="av">AL</div><div style="flex:1;min-width:0"><div class="title" style="font-size:17px">An alumnus of your college</div><div class="lbl">Works at a company you want to reach</div></div></div>
+          <p style="font-family:var(--bd);font-size:15px;color:var(--ink2);margin-top:var(--s3);border-left:3px solid var(--line);padding-left:var(--s3)">Your fest’s message, with your deck and proof pack attached.</p>
+          <div class="row" style="margin-top:var(--s4);gap:8px"><span class="mini-btn p">Introduce</span><span class="mini-btn">Decline</span><span class="mini-btn">Suggest someone</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="who" style="background:color-mix(in srgb,var(--paper2) 60%,transparent)">
+    <div class="wrap">
+      <div class="sec-h rv">
+        <div class="eyebrow">Who it’s for</div>
+        <h2>For fest teams, brands and alumni.</h2>
+      </div>
+      <div class="grid3">
+        <div class="card who rv"><span class="tape"></span><h3>Fest teams</h3><p>Leads, members and a view-only convenor share one pipeline, see what needs doing next and hand over to next year’s team.</p></div>
+        <div class="card who rv"><span class="tape teal"></span><h3>Brand managers</h3><p>Receive requests in one standard format. Accept, decline with a reason or ask a question, compare fests side by side and limit how many requests arrive.</p></div>
+        <div class="card who rv"><span class="tape brick"></span><h3>Alumni</h3><p>Get introduction requests from fests at your own college and answer each one with a single tap.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="verification">
+    <div class="wrap split">
+      <div class="rv">
+        <div class="eyebrow">How verification works</div>
+        <h2 style="font-size:clamp(28px,4vw,40px);margin-top:var(--s2)">A person checks every listing.</h2>
+        <p class="lede" style="margin-top:var(--s3);font-size:18px">Our verification desk checks every fest, brand, alumnus and contact before others can see them, and records how each check was done.</p>
+      </div>
+      <ol class="tl rv">
+        <li><span class="k"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><h3>Fests</h3><p>Checked through a college email and faculty confirmation, or the student affairs office.</p></li>
+        <li><span class="k"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><h3>Brands and contacts</h3><p>Checked with a test email, a phone call or confirmation from the brand.</p></li>
+        <li><span class="k"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><h3>Alumni</h3><p>Checked against college alumni records or a LinkedIn profile.</p></li>
+        <li><span class="k"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2"/></svg></span><h3>Re-checks and reports</h3><p>Contacts are re-checked within 90 days. Anyone can report a bounced email or a listing that looks wrong, and the desk reviews it.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="faq" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-h rv">
+        <div class="eyebrow">FAQ</div>
+        <h2>Questions, answered plainly.</h2>
+      </div>
+      <div class="faq">
+        <details data-early><summary>Is SponsrMitra open now?</summary><p>Not yet. We’re setting it up for its first fests and brands. Write to us to ask for early access.</p></details>
+        <details data-open hidden><summary>How do I sign in?</summary><p>Open the app and enter your email. We’ll send you a code to sign in. There are no passwords.</p></details>
+        <details><summary>Which fests can join?</summary><p>Fests at colleges in India. Everything in SponsrMitra assumes India for now. A fest can send requests once our desk has verified it.</p></details>
+        <details><summary>How are contact details protected?</summary><p>A brand contact’s email stays hidden until your fest reaches out to that company. Alumni appear only to fests from their own college. Other fests never see your pipeline.</p></details>
+        <details><summary>Where do the benchmark figures come from?</summary><p>From figures fest teams report to our verification desk. A range appears only when at least five fests are behind it. Until then you see “Not enough data yet”.</p></details>
+        <details><summary>Does money move through SponsrMitra?</summary><p>No. You can record deals and payments to keep track of them, but payments happen outside the app.</p></details>
+        <details><summary>How will I hear about replies?</summary><p>Alerts appear inside the app. There are no email or WhatsApp alerts yet, and the app checks for updates every 20 seconds rather than instantly.</p></details>
+        <details><summary>Can I remove my data?</summary><p>Signed-in users can download or delete their data from their profile page. If you are a company contact and want to be removed, write to us.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="early-access" style="padding-top:0">
+    <div class="wrap">
+      <div class="card ea">
+        <span class="tape"></span><span class="tape teal r"></span>
+        <div data-early>
+          <span class="ticket"><i aria-hidden="true"></i>Early access</span>
+          <h2>Ask for early access</h2>
+          <p>We’re opening to a small group of fests and brands first. Write to us with your fest or company name and your city.</p>
+          <a class="btn primary" id="mail" href="#early-access" hidden>Write to us</a>
+          <p class="small" id="mail-who" hidden></p>
+          <p class="small" id="no-mail">Opening soon. Please check back shortly.</p>
+        </div>
+        <div data-open hidden>
+          <h2>SponsrMitra is open</h2>
+          <p>Sign in with your email. We’ll send you a code.</p>
+          <a class="btn primary" href="app/">Open the app</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="./" style="font-size:16px"><span class="pin" aria-hidden="true"></span>SponsrMitra</a>
+    <nav aria-label="Footer">
+      <a href="#" id="f-contact" hidden>Contact</a>
+      <a href="#" id="f-terms" hidden>Terms</a>
+      <a href="#" id="f-privacy" hidden>Privacy</a>
+      <a href="app/" data-open hidden>Open the app</a>
+    </nav>
+    <span>Made in India</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var CFG = window.SPONSRMITRA_CONFIG || {};
+  var open = CFG.appOpen === true;
+  var email = typeof CFG.contactEmail === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(CFG.contactEmail.trim()) ? CFG.contactEmail.trim() : '';
+  var $ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+
+  // Launch switch: appOpen in config.js decides what the landing buttons do.
+  $('[data-early]').forEach(function (el) { el.hidden = open; });
+  $('[data-open]').forEach(function (el) { el.hidden = !open; });
+  $('[data-cta]').forEach(function (a) {
+    if (open) { a.textContent = 'Open the app'; a.href = 'app/'; return; }
+    a.addEventListener('click', function () { setRole(a.getAttribute('data-cta')); });
+  });
+
+  // The email address comes only from config.js.
+  var mail = document.getElementById('mail'), who = document.getElementById('mail-who');
+  function mailto(subject) { return 'mailto:' + email + '?subject=' + encodeURIComponent(subject); }
+  function setRole(role) {
+    if (!email) return;
+    mail.href = mailto(role === 'brand' ? 'Early access: brand' : 'Early access: fest team');
+    who.textContent = role === 'brand' ? 'You’re writing as a brand.' : 'You’re writing as a fest team.';
+    who.hidden = false;
+  }
+  if (email) {
+    mail.href = mailto('Early access request'); mail.hidden = false;
+    document.getElementById('no-mail').hidden = true;
+    var fc = document.getElementById('f-contact'); fc.href = 'mailto:' + email; fc.hidden = false;
+  }
+  [['termsUrl', 'f-terms'], ['privacyUrl', 'f-privacy']].forEach(function (x) {
+    var u = CFG[x[0]]; if (typeof u === 'string' && /^https?:\/\//.test(u)) { var a = document.getElementById(x[1]); a.href = u; a.hidden = false; }
+  });
+
+  // Theme toggle, remembered on this device when storage allows it.
+  document.getElementById('theme').addEventListener('click', function () {
+    var root = document.documentElement, cur = root.getAttribute('data-theme');
+    if (!cur) cur = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    var next = cur === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('sponsrmitra.theme', next); } catch (e) { /* storage blocked */ }
+  });
+
+  // Gentle reveal on scroll, skipped when the visitor prefers less motion.
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('js-reveal');
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+    $('.rv').forEach(function (el) { io.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>
