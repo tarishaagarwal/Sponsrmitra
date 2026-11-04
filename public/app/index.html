@@ -160,6 +160,41 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible,.chip:focus-visibl
 
 .demobar{background:var(--ink);color:var(--bg);font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:12px;text-align:center;padding:5px 8px;position:relative;z-index:41}
 
+/* ----- Desktop layout (900px and up): the phone shell becomes a website.
+   Below 900px nothing changes - the mobile app layout is untouched. ----- */
+@media (min-width:900px){
+  #app{max-width:1120px;padding-bottom:64px}
+  .pad{padding:0 32px}
+  .hdr{padding:12px 32px 10px}
+  .appbar{padding:0 32px}
+  /* tab bar moves to a website top bar under the brand header */
+  .nav{top:0;bottom:auto;left:0;right:0;transform:none;width:100%;max-width:none;height:56px;padding:0 24px;border-top:none;border-bottom:1px solid var(--line);justify-content:center;gap:2px}
+  #app:has(.hdr) .nav{top:62px}
+  .demobar{position:fixed;left:0;right:0;bottom:0}
+  .nav a{flex-direction:row;width:auto;gap:6px;padding:8px 12px;font-size:13.5px;font-weight:600}
+  .nav a .ic{width:auto;height:auto;padding:0;border-radius:0}
+  .nav a .ic svg{width:18px;height:18px;display:block}
+  .nav a:hover{color:var(--ink)}
+  .nav a.on{box-shadow:inset 0 -2px 0 var(--mari)}
+  .nav a.on .ic{background:transparent}
+  /* page content clears the fixed top bar; sub-page bars sit under it */
+  #app:has(.nav) #main{padding-top:56px}
+  #app:has(.nav):not(:has(.hdr)) .appbar{top:56px}
+  /* bottom sheets become centred dialogs */
+  .ovl{align-items:center;padding:24px}
+  .sheet{max-width:640px;max-height:84vh;border-radius:22px}
+  /* fixed action bar docks right instead of stretching */
+  .sticky{max-width:1120px;justify-content:flex-end}
+  .sticky .btn{flex:0 0 auto;width:auto;min-width:220px}
+  /* desktop-sized controls and readable content */
+  #main .btn:not(.sm){max-width:420px}
+  .chips{flex-wrap:wrap;overflow:visible;margin:0}
+  .hero{max-width:620px;margin:0 auto;padding-top:64px}
+  .hero + .pad{max-width:652px;margin:0 auto}
+  .metric{min-width:170px}
+  .slide,.docpage{max-width:860px;margin-left:auto;margin-right:auto}
+}
+
 </style>
 </head>
 <body>

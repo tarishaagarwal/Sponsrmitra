@@ -1,5 +1,5 @@
 """The real app (public/app/) must show no sample data and no demo people when it is not connected."""
-import re
+import re, shutil, tempfile
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
@@ -13,7 +13,10 @@ with sync_playwright() as p:
     b = p.chromium.launch(); pg = b.new_page(viewport={'width': 390, 'height': 844}); errs = []
     pg.on('pageerror', lambda e: errs.append(str(e)))
     pg.route('**/supabase.js', lambda r: r.abort()); pg.route('**/fonts.g*', lambda r: r.abort())
-    pg.goto('file://' + str(ROOT / 'public' / 'app' / 'index.html')); pg.wait_for_timeout(500)
+    # The holding page is what /app/ shows before the Supabase keys are set, so use an empty config.
+    site = Path(tempfile.mkdtemp()); shutil.copytree(ROOT / 'public', site, dirs_exist_ok=True)
+    (site / 'config.js').write_text("window.SPONSRMITRA_CONFIG = {supabaseUrl:'', supabaseAnonKey:'', contactEmail:''};", encoding='utf-8')
+    pg.goto('file://' + str(site / 'app' / 'index.html')); pg.wait_for_timeout(500)
     text = pg.inner_text('#app')
     ok = pg.locator('.persona').count() == 0 and 'opening soon' in text and not errs and pg.evaluate("()=>Object.keys(localStorage).length") == 0
     print('PASS holding page, no personas, nothing stored' if ok else 'FAIL holding page: %s %s' % (text[:100], errs))
