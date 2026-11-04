@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- Source of public/og.png, the social preview image. Re-make it with:
+     node scripts/make-og.js   (needs Playwright with Chromium) -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Source+Serif+4:opsz,wght@8..60,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1200px;height:630px}
+body{background:#E7DCC3;background-image:radial-gradient(circle at 15% 10%,rgba(255,255,255,.25),transparent 40%),radial-gradient(rgba(34,31,26,.06) 1px,transparent 1.3px);background-size:auto,6px 6px;display:flex;align-items:center;justify-content:center;font-family:"Space Grotesk",Arial,sans-serif;color:#221F1A}
+.card{position:relative;width:1000px;height:440px;background:#FFFCF4;border:1px solid rgba(34,31,26,.14);border-radius:24px;box-shadow:0 30px 60px -30px rgba(34,31,26,.5);transform:rotate(-1deg);padding:72px 80px;display:flex;flex-direction:column;justify-content:center}
+.tape{position:absolute;top:-16px;width:130px;height:34px;opacity:.85;border-radius:3px}
+.t1{left:80px;background:#D9761C;transform:rotate(-4deg)}
+.t2{right:80px;background:#1F5C56;transform:rotate(5deg);opacity:.75}
+.brand{display:flex;align-items:center;gap:16px;font-weight:700;font-size:40px;letter-spacing:-.01em}
+.pin{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#D85A4C 0 30%,#A83A2D 32% 70%,#6A231A 72%);box-shadow:0 3px 4px rgba(0,0,0,.35)}
+h1{font-weight:700;font-size:76px;letter-spacing:-.03em;line-height:1.05;margin-top:36px}
+p{font-family:"Source Serif 4",Georgia,serif;font-size:30px;color:#5A5445;margin-top:22px}
+</style>
+</head>
+<body>
+<div class="card">
+  <span class="tape t1"></span><span class="tape t2"></span>
+  <div class="brand"><span class="pin"></span>SponsrMitra</div>
+  <h1>Sponsorship, sorted<br>for college fests.</h1>
+  <p>Early access for Indian college fests</p>
+</div>
+</body>
+</html>

@@ -828,7 +828,7 @@ V.loginServer = () => {
     (a.step === 'code'
       ? '<div class="card mt16"><div class="h3">Check your email</div><p class="note mt8">We sent a code to <b class="sg" style="color:var(--ink)">' + esc(a.email) + '</b>. Enter it below.</p>' + fld('Code', inp('au.code', { ph: '123456' })) +
         '<button class="btn primary mt16 ' + (a.busy ? 'off' : '') + '" data-act="sbVerify">Sign in</button><button class="btn ghost mt12" data-act="sbBack">Use a different email</button></div>'
-      : '<div class="card mt16"><div class="h3">Sign in or create an account</div><p class="note mt8">No password. We email you a short code.</p>' + fld('Email', inp('au.email', { type: 'email', ph: 'you@college.edu' })) +
+      : '<div class="card mt16"><div class="h3">Sign in or create an account</div><p class="note mt8">No password. We email you a short code.</p>' + fld('Email', inp('au.email', { type: 'email', ph: 'Your college or work email' })) +
         '<button class="btn primary mt16 ' + (a.busy ? 'off' : '') + '" data-act="sbSendCode">Email me a code</button></div>') +
     '<p class="note mt16">By continuing you agree to the <a href="' + esc(CFG.termsUrl || '#') + '" style="text-decoration:underline">terms</a> and <a href="' + esc(CFG.privacyUrl || '#') + '" style="text-decoration:underline">privacy policy</a>.</p></div>';
 };
@@ -903,7 +903,7 @@ const COLORS = ['#1F5C56', '#A83A2D', '#3F5A78', '#6B3A6B', '#8A5A0B', '#4F6D3A'
 V.login = () => (SERVER ? V.loginServer() : DEMO_OK ? V.loginDemo() : V.holding());
 V.holding = () => '<div class="hero"><div class="brand"><i></i>SponsrMitra</div><h1 class="h1" style="font-size:34px;margin-top:22px">Sponsorship, sorted for college fests.</h1>' +
   '<p class="note mt12" style="font-size:16px">Verified companies, real benchmarks and warm introductions through your own alumni.</p></div>' +
-  '<div class="pad"><div class="card mt16"><div class="h3">We’re opening soon</div><p class="note mt8">SponsrMitra is being set up for its first fests. ' + (CFG.contactEmail ? 'To be among the first, write to <a href="mailto:' + esc(CFG.contactEmail) + '" style="text-decoration:underline">' + esc(CFG.contactEmail) + '</a>.' : 'Please check back shortly.') + '</p></div></div>';
+  '<div class="pad"><div class="card mt16"><div class="h3">We’re opening soon</div><p class="note mt8">SponsrMitra is being set up for its first fests. ' + (CFG.contactEmail ? 'To be among the first, write to <a href="mailto:' + esc(CFG.contactEmail) + '" style="text-decoration:underline">' + esc(CFG.contactEmail) + '</a>.' : 'Please check back shortly.') + '</p><a class="btn ghost sm mt16" href="../">About SponsrMitra</a></div></div>';
 V.loginDemo = () => {
   const personas = S.users.map((u) => '<button class="persona" data-act="signin" data-id="' + u.id + '">' + avatar(u.initials, 'lg') +
     '<div class="f1"><div class="sg" style="font-weight:700;font-size:16px">' + esc(u.name) + '</div><div class="note">' + esc(ROLE_LABEL[u.role]) + '. ' + esc(u.title) + '</div></div>' + ico('chev', 18, 'currentColor', 2) + '</button>').join('');

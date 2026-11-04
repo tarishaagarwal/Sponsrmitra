@@ -5,17 +5,19 @@ A verified sponsorship marketplace for Indian college fests. Fest teams find ver
 ## Status
 
 - The app and backend are built and tested. The site is published on GitHub Pages at https://sponsrmitra.live (domain verified, HTTPS on), deployed from `public/` by `.github/workflows/pages.yml`. It is **not fully live yet**: the owner still has to create the Supabase project and set up an email sender (see `docs/SETUP.md`).
-- The real build (`public/index.html`) contains **no sample data**. Until `public/config.js` is filled in it shows an "opening soon" page.
+- The site root (`public/index.html`) is the landing page, built from `src/landing.html`. The app is at `/app/` (`public/app/index.html`).
+- The real build contains **no sample data**. Until the Supabase keys in `public/config.js` are filled in, `/app/` shows an "opening soon" page. `appOpen` in `config.js` only switches the landing page buttons from "Request early access" to "Open the app".
 - The owner is a student working alone and is not an engineer. Explain changes in plain language and say what needs doing outside the code.
 
 ## Layout
 
 - `src/*.js`, `src/style.css`: the app. Plain JavaScript, no framework, no bundler.
-- `scripts/build.py`: joins `src/` into `public/index.html` (real) and `demo/sponsrmitra-demo.html` (sample data). **Edit `src/`, then rebuild. Never edit the built files by hand.**
+- `scripts/build.py`: copies `src/landing.html` and `src/404.html` into `public/`, joins `src/*.js` into `public/app/index.html` (real) and `demo/sponsrmitra-demo.html` (sample data). **Edit `src/`, then rebuild. Never edit the built files by hand.** The built files are committed; `bash tests/run_all.sh` fails if they don't match a fresh build. `node scripts/make-og.js` re-makes `public/og.png`.
+- The landing page and 404 page never contain an email address. The contact email comes only from `public/config.js`. The build refuses invented statistics and usage claims.
 - `supabase/schema.sql`: the whole backend (tables, rules, server functions, notification triggers).
 - `tests/`: run `bash tests/run_all.sh` (needs `pip install -r tests/requirements.txt` and `playwright install chromium`). The tests start a throwaway Postgres, so they never touch a real project.
 - `docs/`: setup guide, job spec, feature list, idea summary, design screens, links.
-- `legacy/ai-studio-landing/`: the first landing page. Superseded. Do not build on it.
+- `legacy/ai-studio-landing/` and `legacy/noticeboard-landing/`: earlier landing pages. Superseded. Do not build on them.
 
 Source order matters (all files share one scope): `data.js`, `ui.js`, `backend.js`, `auth.js`, `fest.js`, `fest2.js`, `brand.js`, `admin.js`, `main.js`.
 
@@ -50,7 +52,7 @@ Alerts appear in the app only (no email or WhatsApp). Photos are stored inside t
 ## Likely next jobs
 
 - Help the owner finish go-live from `docs/SETUP.md` (Supabase, email sender, first desk account). Hosting and the domain are done.
-- Replace the landing page waitlist (see `legacy/ai-studio-landing/LEGACY.md` and `landing/README.md`) with a form that saves to the same Supabase project.
+- Replace the landing page waitlist (the email card in `src/landing.html`) with a form that saves to the same Supabase project.
 - Email alerts via a Supabase Edge Function and an email service, then WhatsApp.
 - Move photos to Supabase Storage.
 - Bulk import of companies for the verification desk.

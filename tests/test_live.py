@@ -4,9 +4,9 @@ import pgenv
 from pgenv import Client, ROOT
 
 conn = pgenv.start(); U = pgenv.uri(); cur = conn.cursor()
-site = tempfile.mkdtemp()
-shutil.copy(str(ROOT / 'public' / 'index.html'), site + '/index.html')
-open(site + '/config.js', 'w').write("window.SPONSRMITRA_CONFIG={supabaseUrl:'http://fake.local',supabaseAnonKey:'anon-key'};")
+root = tempfile.mkdtemp(); site = root + '/app'; os.makedirs(site)
+shutil.copy(str(ROOT / 'public' / 'app' / 'index.html'), site + '/index.html')
+open(root + '/config.js', 'w').write("window.SPONSRMITRA_CONFIG={supabaseUrl:'http://fake.local',supabaseAnonKey:'anon-key'};")
 fails = []; errors = []
 def check(name, cond, extra=''):
     print(('PASS ' if cond else 'FAIL ') + name + ((' :: ' + str(extra)) if (not cond and extra) else ''))

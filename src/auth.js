@@ -5,7 +5,7 @@ const COLORS = ['#1F5C56', '#A83A2D', '#3F5A78', '#6B3A6B', '#8A5A0B', '#4F6D3A'
 V.login = () => (SERVER ? V.loginServer() : DEMO_OK ? V.loginDemo() : V.holding());
 V.holding = () => '<div class="hero"><div class="brand"><i></i>SponsrMitra</div><h1 class="h1" style="font-size:34px;margin-top:22px">Sponsorship, sorted for college fests.</h1>' +
   '<p class="note mt12" style="font-size:16px">Verified companies, real benchmarks and warm introductions through your own alumni.</p></div>' +
-  '<div class="pad"><div class="card mt16"><div class="h3">We’re opening soon</div><p class="note mt8">SponsrMitra is being set up for its first fests. ' + (CFG.contactEmail ? 'To be among the first, write to <a href="mailto:' + esc(CFG.contactEmail) + '" style="text-decoration:underline">' + esc(CFG.contactEmail) + '</a>.' : 'Please check back shortly.') + '</p></div></div>';
+  '<div class="pad"><div class="card mt16"><div class="h3">We’re opening soon</div><p class="note mt8">SponsrMitra is being set up for its first fests. ' + (CFG.contactEmail ? 'To be among the first, write to <a href="mailto:' + esc(CFG.contactEmail) + '" style="text-decoration:underline">' + esc(CFG.contactEmail) + '</a>.' : 'Please check back shortly.') + '</p><a class="btn ghost sm mt16" href="../">About SponsrMitra</a></div></div>';
 V.loginDemo = () => {
   const personas = S.users.map((u) => '<button class="persona" data-act="signin" data-id="' + u.id + '">' + avatar(u.initials, 'lg') +
     '<div class="f1"><div class="sg" style="font-weight:700;font-size:16px">' + esc(u.name) + '</div><div class="note">' + esc(ROLE_LABEL[u.role]) + '. ' + esc(u.title) + '</div></div>' + ico('chev', 18, 'currentColor', 2) + '</button>').join('');

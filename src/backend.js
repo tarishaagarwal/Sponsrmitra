@@ -107,7 +107,7 @@ V.loginServer = () => {
     (a.step === 'code'
       ? '<div class="card mt16"><div class="h3">Check your email</div><p class="note mt8">We sent a code to <b class="sg" style="color:var(--ink)">' + esc(a.email) + '</b>. Enter it below.</p>' + fld('Code', inp('au.code', { ph: '123456' })) +
         '<button class="btn primary mt16 ' + (a.busy ? 'off' : '') + '" data-act="sbVerify">Sign in</button><button class="btn ghost mt12" data-act="sbBack">Use a different email</button></div>'
-      : '<div class="card mt16"><div class="h3">Sign in or create an account</div><p class="note mt8">No password. We email you a short code.</p>' + fld('Email', inp('au.email', { type: 'email', ph: 'you@college.edu' })) +
+      : '<div class="card mt16"><div class="h3">Sign in or create an account</div><p class="note mt8">No password. We email you a short code.</p>' + fld('Email', inp('au.email', { type: 'email', ph: 'Your college or work email' })) +
         '<button class="btn primary mt16 ' + (a.busy ? 'off' : '') + '" data-act="sbSendCode">Email me a code</button></div>') +
     '<p class="note mt16">By continuing you agree to the <a href="' + esc(CFG.termsUrl || '#') + '" style="text-decoration:underline">terms</a> and <a href="' + esc(CFG.privacyUrl || '#') + '" style="text-decoration:underline">privacy policy</a>.</p></div>';
 };
