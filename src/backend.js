@@ -103,7 +103,7 @@ V.loginServer = () => {
   }
   const a = ui.auth || { step: 'email', email: '' };
   return '<div class="hero"><div class="brand"><i></i>SponsrMitra</div><h1 class="h1" style="font-size:34px;margin-top:22px">Sponsorship, sorted for college fests.</h1>' +
-    '<p class="note mt12" style="font-size:16px">Verified companies, real benchmarks and warm introductions through your own alumni.</p></div><div class="pad">' +
+    '<p class="note mt12" style="font-size:16px">One place for your fest’s sponsor hunt: the target, the companies, the follow-ups and introductions through your own alumni.</p></div><div class="pad">' +
     (a.step === 'code'
       ? '<div class="card mt16"><div class="h3">Check your email</div><p class="note mt8">We sent a code to <b class="sg" style="color:var(--ink)">' + esc(a.email) + '</b>. Enter it below.</p>' + fld('Code', inp('au.code', { ph: '123456' })) +
         '<button class="btn primary mt16 ' + (a.busy ? 'off' : '') + '" data-act="sbVerify">Sign in</button><button class="btn ghost mt12" data-act="sbBack">Use a different email</button></div>'

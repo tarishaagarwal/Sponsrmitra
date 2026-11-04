@@ -3,6 +3,7 @@
 | File | What it checks |
 | --- | --- |
 | `test_sql.py` | The database rules and functions against a real Postgres: who can see and change what, hidden contact emails, notifications, caps, verification. |
+| `test_team_cap.py` | A fest team is capped at 4 people (lead, members and view-only convenor together), including two people joining at the same moment. |
 | `test_live.py` | The real app with six people signed in at once on separate browsers sharing one database. |
 | `test_holding.py` | The real app (`public/app/`) contains no sample data and shows the "opening soon" page when not connected. |
 | `test_landing.py` | The landing page and 404 page: no invented statistics or usage claims, no email written into any page, the `appOpen` launch switch, the email card built from `config.js`, social preview tags, no sideways scrolling at 360 px and reduced motion. |

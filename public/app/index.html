@@ -698,7 +698,7 @@ V.loginServer = () => {
   }
   const a = ui.auth || { step: 'email', email: '' };
   return '<div class="hero"><div class="brand"><i></i>SponsrMitra</div><h1 class="h1" style="font-size:34px;margin-top:22px">Sponsorship, sorted for college fests.</h1>' +
-    '<p class="note mt12" style="font-size:16px">Verified companies, real benchmarks and warm introductions through your own alumni.</p></div><div class="pad">' +
+    '<p class="note mt12" style="font-size:16px">One place for your fest’s sponsor hunt: the target, the companies, the follow-ups and introductions through your own alumni.</p></div><div class="pad">' +
     (a.step === 'code'
       ? '<div class="card mt16"><div class="h3">Check your email</div><p class="note mt8">We sent a code to <b class="sg" style="color:var(--ink)">' + esc(a.email) + '</b>. Enter it below.</p>' + fld('Code', inp('au.code', { ph: '123456' })) +
         '<button class="btn primary mt16 ' + (a.busy ? 'off' : '') + '" data-act="sbVerify">Sign in</button><button class="btn ghost mt12" data-act="sbBack">Use a different email</button></div>'
@@ -776,14 +776,14 @@ const COLORS = ['#1F5C56', '#A83A2D', '#3F5A78', '#6B3A6B', '#8A5A0B', '#4F6D3A'
 
 V.login = () => (SERVER ? V.loginServer() : DEMO_OK ? V.loginDemo() : V.holding());
 V.holding = () => '<div class="hero"><div class="brand"><i></i>SponsrMitra</div><h1 class="h1" style="font-size:34px;margin-top:22px">Sponsorship, sorted for college fests.</h1>' +
-  '<p class="note mt12" style="font-size:16px">Verified companies, real benchmarks and warm introductions through your own alumni.</p></div>' +
+  '<p class="note mt12" style="font-size:16px">One place for your fest’s sponsor hunt: the target, the companies, the follow-ups and introductions through your own alumni.</p></div>' +
   '<div class="pad"><div class="card mt16"><div class="h3">We’re opening soon</div><p class="note mt8">SponsrMitra is being set up for its first fests. ' + (CFG.contactEmail ? 'To be among the first, write to <a href="mailto:' + esc(CFG.contactEmail) + '" style="text-decoration:underline">' + esc(CFG.contactEmail) + '</a>.' : 'Please check back shortly.') + '</p><a class="btn ghost sm mt16" href="../">About SponsrMitra</a></div></div>';
 V.loginDemo = () => {
   const personas = S.users.map((u) => '<button class="persona" data-act="signin" data-id="' + u.id + '">' + avatar(u.initials, 'lg') +
     '<div class="f1"><div class="sg" style="font-weight:700;font-size:16px">' + esc(u.name) + '</div><div class="note">' + esc(ROLE_LABEL[u.role]) + '. ' + esc(u.title) + '</div></div>' + ico('chev', 18, 'currentColor', 2) + '</button>').join('');
   return '<div class="hero"><div class="brand"><i></i>SponsrMitra</div>' +
     '<h1 class="h1" style="font-size:34px;margin-top:22px">Sponsorship, sorted for college fests.</h1>' +
-    '<p class="note mt12" style="font-size:16px">Verified companies, real benchmarks and warm introductions through your own alumni. Pick a person to explore the product from their side.</p></div>' +
+    '<p class="note mt12" style="font-size:16px">One place for your fest’s sponsor hunt: the target, the companies, the follow-ups and introductions through your own alumni. Pick a person to explore the product from their side.</p></div>' +
     '<div class="pad"><div class="cap mt16">Explore as</div>' + personas +
     '<div class="sec"><div class="h3">Create an account</div></div>' +
     '<div class="row wrap"><button class="btn ghost sm" data-act="openReg" data-v="fest">Register a fest</button><button class="btn ghost sm" data-act="openReg" data-v="brand">Register a brand</button><button class="btn ghost sm" data-act="openReg" data-v="alumni">Join as alumnus</button></div>' +
@@ -813,7 +813,7 @@ SHEETS.notifs = () => {
   const items = S.notifs.filter((n) => n.userId === u.id).slice(0, 25);
   return '<div class="h2">Notifications</div>' +
     (items.length ? '<div class="card mt12" style="padding:6px 16px">' + items.map((n) => '<a class="lr" href="' + esc(n.link || '#/') + '"><div class="t"><b style="font-weight:600">' + esc(n.text) + '</b><span>' + agoText(n.ts) + '</span></div>' + ico('chev', 16, 'currentColor', 2) + '</a>').join('') + '</div>' : empty('Nothing yet', 'Replies, intro responses and due tasks show up here.')) +
-    (u.role === 'fest' ? '<button class="btn ghost mt16" data-act="digest">Preview this week’s digest</button><p class="note mt8">In the live product this goes to email and WhatsApp.</p>' : '') +
+    (u.role === 'fest' ? '<button class="btn ghost mt16" data-act="digest">Preview this week’s digest</button>' : '') +
     '<button class="btn ghost mt12" data-act="closeSheet">Close</button>';
 };
 ACT.digest = () => {
